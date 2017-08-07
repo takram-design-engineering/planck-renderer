@@ -22,7 +22,6 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import * as Three from 'three'
 import chai from 'chai'
 
 import { Environment } from '@takram/planck-core'
@@ -33,7 +32,7 @@ const expect = chai.expect
 describe('Renderer', () => {
   if (Environment.type === 'browser') {
     it('', () => {
-      expect(new Renderer()).not.undefined
+      expect(() => new Renderer()).not.throws(Error)
     })
   }
 })
