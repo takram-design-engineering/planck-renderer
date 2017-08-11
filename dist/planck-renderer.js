@@ -506,6 +506,7 @@ function Namespace() {
     };
 
     if (object[symbol] === undefined) {
+      // eslint-disable-next-line no-param-reassign
       object[symbol] = init({});
     }
     return object[symbol];
@@ -683,6 +684,21 @@ var PointsMaterial$1 = function (_Three$ShaderMaterial) {
 
 var internal$1 = Namespace('Renderer');
 
+function renderBufferDirect(camera, fog, geometry, material, object, group) {
+  var pixelRatio = void 0;
+  if (material instanceof LineBasicMaterial$1 || material instanceof PointsMaterial$1) {
+    pixelRatio = material.uniforms.pixelRatio.value;
+    // eslint-disable-next-line no-param-reassign
+    material.uniforms.pixelRatio.value = this.getPixelRatio();
+  }
+  var scope = internal$1(this);
+  scope.renderBufferDirect(camera, fog, geometry, material, object, group);
+  if (material instanceof LineBasicMaterial$1 || material instanceof PointsMaterial$1) {
+    // eslint-disable-next-line no-param-reassign
+    material.uniforms.pixelRatio.value = pixelRatio;
+  }
+}
+
 var Renderer = function (_Three$WebGLRenderer) {
   inherits(Renderer, _Three$WebGLRenderer);
 
@@ -705,14 +721,6 @@ var Renderer = function (_Three$WebGLRenderer) {
 
   return Renderer;
 }(Three.WebGLRenderer);
-
-function renderBufferDirect(camera, fog, geometry, material, object, group) {
-  if (material instanceof LineBasicMaterial$1 || material instanceof PointsMaterial$1) {
-    material.uniforms.pixelRatio.value = this.getPixelRatio();
-  }
-  var scope = internal$1(this);
-  scope.renderBufferDirect(camera, fog, geometry, material, object, group);
-}
 
 //
 //  The MIT License
