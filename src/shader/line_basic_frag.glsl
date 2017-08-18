@@ -22,15 +22,15 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-#include "linebasic_fragment_pars"
+#include "line_basic_fragment_pars"
 
 uniform float pixelRatio;
 uniform float targetPixelRatio;
 
 void main() {
-  #include "linebasic_fragment_begin"
+  #include "line_basic_fragment_begin"
 
   diffuseColor.a *= pixelRatio / targetPixelRatio;
 
-  #include "linebasic_fragment_end"
+  #include "line_basic_fragment_end"
 }

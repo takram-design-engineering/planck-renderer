@@ -22,9 +22,9 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-#include "linepicking_vertex_pars"
+#include "line_picking_vertex_pars"
 
 void main() {
-  #include "linepicking_vertex_begin"
-  #include "linepicking_vertex_end"
+  #include "line_picking_vertex_begin"
+  #include "line_picking_vertex_end"
 }

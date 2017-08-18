@@ -22,14 +22,9 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-#include "meshpicking_fragment_pars"
-
-uniform vec4 identifier;
+#include "mesh_picking_fragment_pars"
 
 void main() {
-  #include "meshpicking_fragment_begin"
-
-  gl_FragColor = identifier;
-
-  #include "meshpicking_fragment_end"
+  #include "mesh_picking_fragment_begin"
+  #include "mesh_picking_fragment_end"
 }

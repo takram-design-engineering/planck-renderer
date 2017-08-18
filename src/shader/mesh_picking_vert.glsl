@@ -22,9 +22,9 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-#include "meshpicking_vertex_pars"
+#include "mesh_picking_vertex_pars"
 
 void main() {
-  #include "meshpicking_vertex_begin"
-  #include "meshpicking_vertex_end"
+  #include "mesh_picking_vertex_begin"
+  #include "mesh_picking_vertex_end"
 }

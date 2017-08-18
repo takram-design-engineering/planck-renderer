@@ -22,9 +22,9 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-#include "linebasic_vertex_pars"
+#include "line_basic_vertex_pars"
 
 void main() {
-  #include "linebasic_vertex_begin"
-  #include "linebasic_vertex_end"
+  #include "line_basic_vertex_begin"
+  #include "line_basic_vertex_end"
 }
