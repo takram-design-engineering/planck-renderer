@@ -30,7 +30,7 @@ import fragmentShader from './shader/mesh_picking_frag.glsl'
 import vertexShader from './shader/mesh_picking_vert.glsl'
 
 export default class MeshPickingMaterial extends Three.ShaderMaterial {
-  constructor(parameters) {
+  constructor(identifier) {
     super()
     this.uniforms = Three.UniformsUtils.merge([
       Three.UniformsLib.common, {
@@ -39,9 +39,7 @@ export default class MeshPickingMaterial extends Three.ShaderMaterial {
     ])
     this.vertexShader = Shaders.include(vertexShader)
     this.fragmentShader = Shaders.include(fragmentShader)
-    if (parameters !== undefined) {
-      this.setValues(parameters)
-    }
+    this.identifier = identifier
   }
 
   get identifier() {
@@ -61,6 +59,10 @@ export default class MeshPickingMaterial extends Three.ShaderMaterial {
   }
 
   isMeshBasicMaterial() {
+    return true
+  }
+
+  isPickingMaterial() {
     return true
   }
 }
