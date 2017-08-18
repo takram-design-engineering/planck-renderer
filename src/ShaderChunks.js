@@ -36,30 +36,30 @@ import distance_fragment_pars from './chunk/distance_fragment_pars.glsl'
 import distance_vertex_begin from './chunk/distance_vertex_begin.glsl'
 import distance_vertex_end from './chunk/distance_vertex_end.glsl'
 import distance_vertex_pars from './chunk/distance_vertex_pars.glsl'
-import linebasic_fragment_begin from './chunk/linebasic_fragment_begin.glsl'
-import linebasic_fragment_end from './chunk/linebasic_fragment_end.glsl'
-import linebasic_fragment_pars from './chunk/linebasic_fragment_pars.glsl'
-import linebasic_vertex_begin from './chunk/linebasic_vertex_begin.glsl'
-import linebasic_vertex_end from './chunk/linebasic_vertex_end.glsl'
-import linebasic_vertex_pars from './chunk/linebasic_vertex_pars.glsl'
-import linepicking_fragment_begin from './chunk/linepicking_fragment_begin.glsl'
-import linepicking_fragment_end from './chunk/linepicking_fragment_end.glsl'
-import linepicking_fragment_pars from './chunk/linepicking_fragment_pars.glsl'
-import linepicking_vertex_begin from './chunk/linepicking_vertex_begin.glsl'
-import linepicking_vertex_end from './chunk/linepicking_vertex_end.glsl'
-import linepicking_vertex_pars from './chunk/linepicking_vertex_pars.glsl'
-import meshlambert_fragment_begin from './chunk/meshlambert_fragment_begin.glsl'
-import meshlambert_fragment_end from './chunk/meshlambert_fragment_end.glsl'
-import meshlambert_fragment_pars from './chunk/meshlambert_fragment_pars.glsl'
-import meshlambert_vertex_begin from './chunk/meshlambert_vertex_begin.glsl'
-import meshlambert_vertex_end from './chunk/meshlambert_vertex_end.glsl'
-import meshlambert_vertex_pars from './chunk/meshlambert_vertex_pars.glsl'
-import meshpicking_fragment_begin from './chunk/meshpicking_fragment_begin.glsl'
-import meshpicking_fragment_end from './chunk/meshpicking_fragment_end.glsl'
-import meshpicking_fragment_pars from './chunk/meshpicking_fragment_pars.glsl'
-import meshpicking_vertex_begin from './chunk/meshpicking_vertex_begin.glsl'
-import meshpicking_vertex_end from './chunk/meshpicking_vertex_end.glsl'
-import meshpicking_vertex_pars from './chunk/meshpicking_vertex_pars.glsl'
+import line_basic_fragment_begin from './chunk/line_basic_fragment_begin.glsl'
+import line_basic_fragment_end from './chunk/line_basic_fragment_end.glsl'
+import line_basic_fragment_pars from './chunk/line_basic_fragment_pars.glsl'
+import line_basic_vertex_begin from './chunk/line_basic_vertex_begin.glsl'
+import line_basic_vertex_end from './chunk/line_basic_vertex_end.glsl'
+import line_basic_vertex_pars from './chunk/line_basic_vertex_pars.glsl'
+import line_picking_fragment_begin from './chunk/line_picking_fragment_begin.glsl'
+import line_picking_fragment_end from './chunk/line_picking_fragment_end.glsl'
+import line_picking_fragment_pars from './chunk/line_picking_fragment_pars.glsl'
+import line_picking_vertex_begin from './chunk/line_picking_vertex_begin.glsl'
+import line_picking_vertex_end from './chunk/line_picking_vertex_end.glsl'
+import line_picking_vertex_pars from './chunk/line_picking_vertex_pars.glsl'
+import mesh_lambert_fragment_begin from './chunk/mesh_lambert_fragment_begin.glsl'
+import mesh_lambert_fragment_end from './chunk/mesh_lambert_fragment_end.glsl'
+import mesh_lambert_fragment_pars from './chunk/mesh_lambert_fragment_pars.glsl'
+import mesh_lambert_vertex_begin from './chunk/mesh_lambert_vertex_begin.glsl'
+import mesh_lambert_vertex_end from './chunk/mesh_lambert_vertex_end.glsl'
+import mesh_lambert_vertex_pars from './chunk/mesh_lambert_vertex_pars.glsl'
+import mesh_picking_fragment_begin from './chunk/mesh_picking_fragment_begin.glsl'
+import mesh_picking_fragment_end from './chunk/mesh_picking_fragment_end.glsl'
+import mesh_picking_fragment_pars from './chunk/mesh_picking_fragment_pars.glsl'
+import mesh_picking_vertex_begin from './chunk/mesh_picking_vertex_begin.glsl'
+import mesh_picking_vertex_end from './chunk/mesh_picking_vertex_end.glsl'
+import mesh_picking_vertex_pars from './chunk/mesh_picking_vertex_pars.glsl'
 import points_fragment_begin from './chunk/points_fragment_begin.glsl'
 import points_fragment_end from './chunk/points_fragment_end.glsl'
 import points_fragment_pars from './chunk/points_fragment_pars.glsl'
@@ -80,30 +80,30 @@ export default {
   distance_vertex_begin,
   distance_vertex_end,
   distance_vertex_pars,
-  linebasic_fragment_begin,
-  linebasic_fragment_end,
-  linebasic_fragment_pars,
-  linebasic_vertex_begin,
-  linebasic_vertex_end,
-  linebasic_vertex_pars,
-  linepicking_fragment_begin,
-  linepicking_fragment_end,
-  linepicking_fragment_pars,
-  linepicking_vertex_begin,
-  linepicking_vertex_end,
-  linepicking_vertex_pars,
-  meshlambert_fragment_begin,
-  meshlambert_fragment_end,
-  meshlambert_fragment_pars,
-  meshlambert_vertex_begin,
-  meshlambert_vertex_end,
-  meshlambert_vertex_pars,
-  meshpicking_fragment_begin,
-  meshpicking_fragment_end,
-  meshpicking_fragment_pars,
-  meshpicking_vertex_begin,
-  meshpicking_vertex_end,
-  meshpicking_vertex_pars,
+  line_basic_fragment_begin,
+  line_basic_fragment_end,
+  line_basic_fragment_pars,
+  line_basic_vertex_begin,
+  line_basic_vertex_end,
+  line_basic_vertex_pars,
+  line_picking_fragment_begin,
+  line_picking_fragment_end,
+  line_picking_fragment_pars,
+  line_picking_vertex_begin,
+  line_picking_vertex_end,
+  line_picking_vertex_pars,
+  mesh_lambert_fragment_begin,
+  mesh_lambert_fragment_end,
+  mesh_lambert_fragment_pars,
+  mesh_lambert_vertex_begin,
+  mesh_lambert_vertex_end,
+  mesh_lambert_vertex_pars,
+  mesh_picking_fragment_begin,
+  mesh_picking_fragment_end,
+  mesh_picking_fragment_pars,
+  mesh_picking_vertex_begin,
+  mesh_picking_vertex_end,
+  mesh_picking_vertex_pars,
   points_fragment_begin,
   points_fragment_end,
   points_fragment_pars,
