@@ -22,9 +22,16 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+// r87
+// distanceRGBA_vert.glsl
+
+#define DISTANCE
+
 varying vec4 vWorldPosition;
 
 #include <common>
+#include <uv_pars_vertex>
+#include <displacementmap_pars_vertex>
 #include <morphtarget_pars_vertex>
 #include <skinning_pars_vertex>
 #include <clipping_planes_pars_vertex>

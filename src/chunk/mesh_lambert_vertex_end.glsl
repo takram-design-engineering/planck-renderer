@@ -22,5 +22,16 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-#include <color_vertex>
-#include <begin_vertex>
+// r87
+// meshlambert_vert.glsl
+
+#include <morphtarget_vertex>
+#include <skinning_vertex>
+#include <project_vertex>
+#include <logdepthbuf_vertex>
+#include <clipping_planes_vertex>
+#include <worldpos_vertex>
+#include <envmap_vertex>
+#include <lights_lambert_vertex>
+#include <shadowmap_vertex>
+#include <fog_vertex>

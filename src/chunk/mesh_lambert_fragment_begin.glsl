@@ -22,12 +22,15 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-#include <uv_vertex>
-#include <uv2_vertex>
-#include <color_vertex>
-#include <beginnormal_vertex>
-#include <morphnormal_vertex>
-#include <skinbase_vertex>
-#include <skinnormal_vertex>
-#include <defaultnormal_vertex>
-#include <begin_vertex>
+// r87
+// meshlambert_frag.glsl
+
+#include <clipping_planes_fragment>
+
+#ifndef PLANCK_NO_OPACITY
+  vec4 diffuseColor = vec4(diffuse, opacity);
+#else
+  vec4 diffuseColor = vec4(diffuse, 1.0);
+#endif
+ReflectedLight reflectedLight = ReflectedLight(vec3(0.0), vec3(0.0), vec3(0.0), vec3(0.0));
+vec3 totalEmissiveRadiance = emissive;

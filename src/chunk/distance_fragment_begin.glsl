@@ -22,4 +22,17 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+// r87
+// distanceRGBA_frag.glsl
+
 #include <clipping_planes_fragment>
+
+vec4 diffuseColor = vec4(1.0);
+
+#include <map_fragment>
+#include <alphamap_fragment>
+#include <alphatest_fragment>
+
+float dist = length(vWorldPosition - referencePosition);
+dist = (dist - nearDistance) / (farDistance - nearDistance);
+dist = saturate(dist); // clamp to [0, 1]

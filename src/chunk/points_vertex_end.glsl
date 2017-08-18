@@ -22,6 +22,9 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+// r87
+// points_vert.glsl
+
 #include <project_vertex>
 
 #ifdef USE_SIZEATTENUATION

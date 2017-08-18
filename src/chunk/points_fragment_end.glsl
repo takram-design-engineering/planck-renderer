@@ -22,6 +22,9 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+// r87
+// points_frag.glsl
+
 #include <logdepthbuf_fragment>
 #include <map_particle_fragment>
 #include <color_fragment>

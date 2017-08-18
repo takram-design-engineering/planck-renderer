@@ -22,9 +22,9 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-#include <morphtarget_vertex>
-#include <skinning_vertex>
+// r87
+// linedashed_vert.glsl
+
 #include <project_vertex>
 #include <logdepthbuf_vertex>
-#include <worldpos_vertex>
 #include <clipping_planes_vertex>

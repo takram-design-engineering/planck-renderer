@@ -22,5 +22,8 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+// r87
+// points_vert.glsl
+
 #include <color_vertex>
 #include <begin_vertex>

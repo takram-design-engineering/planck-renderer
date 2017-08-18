@@ -22,6 +22,9 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+// r87
+// points_frag.glsl
+
 #include <clipping_planes_fragment>
 
 vec3 outgoingLight = vec3(0.0);

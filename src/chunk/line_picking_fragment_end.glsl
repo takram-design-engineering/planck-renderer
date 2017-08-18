@@ -1,7 +1,7 @@
 //
 //  The MIT License
 //
-//  Copyright (C) 2010-2017 three.js authors
+//  Copyright (C) 2016-Present Shota Matsuda
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
 //  copy of this software and associated documentation files (the "Software"),
@@ -22,4 +22,4 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-#include <clipping_planes_fragment>
+#include <logdepthbuf_fragment>

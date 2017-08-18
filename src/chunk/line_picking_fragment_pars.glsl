@@ -1,7 +1,7 @@
 //
 //  The MIT License
 //
-//  Copyright (C) 2010-2017 three.js authors
+//  Copyright (C) 2016-Present Shota Matsuda
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
 //  copy of this software and associated documentation files (the "Software"),
@@ -22,14 +22,8 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-#include <logdepthbuf_fragment>
-#include <color_fragment>
+uniform vec4 identifier;
 
-outgoingLight = diffuseColor.rgb; // simple shader
-
-gl_FragColor = vec4(outgoingLight, diffuseColor.a);
-
-#include <premultiplied_alpha_fragment>
-#include <tonemapping_fragment>
-#include <encodings_fragment>
-#include <fog_fragment>
+#include <common>
+#include <logdepthbuf_pars_fragment>
+#include <clipping_planes_pars_fragment>

@@ -22,4 +22,10 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-#include <begin_vertex>
+// r87
+// linedashed_frag.glsl
+
+#include <clipping_planes_fragment>
+
+vec3 outgoingLight = vec3(0.0);
+vec4 diffuseColor = vec4(diffuse, opacity);

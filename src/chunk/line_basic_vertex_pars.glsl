@@ -22,11 +22,11 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-uniform vec3 diffuse;
-uniform float opacity;
+// r87
+// linedashed_vert.glsl
 
 #include <common>
-#include <color_pars_fragment>
-#include <fog_pars_fragment>
-#include <logdepthbuf_pars_fragment>
-#include <clipping_planes_pars_fragment>
+#include <color_pars_vertex>
+#include <fog_pars_vertex>
+#include <logdepthbuf_pars_vertex>
+#include <clipping_planes_pars_vertex>

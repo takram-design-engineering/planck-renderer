@@ -22,6 +22,9 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+// r87
+// depth_frag.glsl
+
 #include <clipping_planes_fragment>
 
 vec4 diffuseColor = vec4(1.0);

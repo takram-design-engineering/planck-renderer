@@ -22,40 +22,26 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-#include <logdepthbuf_fragment>
-#include <map_fragment>
-#include <color_fragment>
-#include <alphamap_fragment>
-#include <alphatest_fragment>
-#include <specularmap_fragment>
-#include <emissivemap_fragment>
+// r87
+// meshlambert_vert.glsl
 
-// accumulation
-reflectedLight.indirectDiffuse = getAmbientLightIrradiance(ambientLightColor);
+#define LAMBERT
 
-#include <lightmap_fragment>
-
-reflectedLight.indirectDiffuse *= BRDF_Diffuse_Lambert(diffuseColor.rgb);
-
+varying vec3 vLightFront;
 #ifdef DOUBLE_SIDED
-  reflectedLight.directDiffuse = (gl_FrontFacing) ? vLightFront : vLightBack;
-#else
-  reflectedLight.directDiffuse = vLightFront;
+  varying vec3 vLightBack;
 #endif
 
-reflectedLight.directDiffuse *= BRDF_Diffuse_Lambert(diffuseColor.rgb) * getShadowMask();
-
-// modulation
-#include <aomap_fragment>
-
-vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + totalEmissiveRadiance;
-
-#include <normal_flip>
-#include <envmap_fragment>
-
-gl_FragColor = vec4(outgoingLight, diffuseColor.a);
-
-#include <premultiplied_alpha_fragment>
-#include <tonemapping_fragment>
-#include <encodings_fragment>
-#include <fog_fragment>
+#include <common>
+#include <uv_pars_vertex>
+#include <uv2_pars_vertex>
+#include <envmap_pars_vertex>
+#include <bsdfs>
+#include <lights_pars>
+#include <color_pars_vertex>
+#include <fog_pars_vertex>
+#include <morphtarget_pars_vertex>
+#include <skinning_pars_vertex>
+#include <shadowmap_pars_vertex>
+#include <logdepthbuf_pars_vertex>
+#include <clipping_planes_pars_vertex>

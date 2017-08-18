@@ -22,6 +22,9 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+// r87
+// depth_frag.glsl
+
 #if DEPTH_PACKING == 3200
 	uniform float opacity;
 #endif

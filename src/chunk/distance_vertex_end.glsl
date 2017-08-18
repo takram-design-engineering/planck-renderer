@@ -22,10 +22,14 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+// r87
+// distanceRGBA_vert.glsl
+
 #include <morphtarget_vertex>
 #include <skinning_vertex>
+#include <displacementmap_vertex>
 #include <project_vertex>
 #include <worldpos_vertex>
 #include <clipping_planes_vertex>
 
-vWorldPosition = worldPosition;
+vWorldPosition = worldPosition.xyz;

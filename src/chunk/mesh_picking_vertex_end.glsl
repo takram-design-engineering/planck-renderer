@@ -1,7 +1,7 @@
 //
 //  The MIT License
 //
-//  Copyright (C) 2010-2017 three.js authors
+//  Copyright (C) 2016-Present Shota Matsuda
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a
 //  copy of this software and associated documentation files (the "Software"),
@@ -22,7 +22,9 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-#include <common>
-#include <color_pars_vertex>
-#include <logdepthbuf_pars_vertex>
-#include <clipping_planes_pars_vertex>
+#include <morphtarget_vertex>
+#include <skinning_vertex>
+#include <project_vertex>
+#include <logdepthbuf_vertex>
+#include <worldpos_vertex>
+#include <clipping_planes_vertex>

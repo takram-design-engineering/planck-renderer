@@ -22,6 +22,9 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+// r87
+// depth_frag.glsl
+
 #include <map_fragment>
 #include <alphamap_fragment>
 #include <alphatest_fragment>

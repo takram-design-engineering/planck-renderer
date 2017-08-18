@@ -22,9 +22,12 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-#include <displacementmap_vertex>
+// r87
+// depth_vert.glsl
+
 #include <morphtarget_vertex>
 #include <skinning_vertex>
+#include <displacementmap_vertex>
 #include <project_vertex>
 #include <logdepthbuf_vertex>
 #include <clipping_planes_vertex>
