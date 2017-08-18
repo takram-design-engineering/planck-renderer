@@ -31,28 +31,30 @@ import PointsMaterial from './PointsMaterial'
 
 export const internal = Namespace('Renderer')
 
-function renderBufferDirect(camera, fog, geometry, material, object, group) {
-  let pixelRatio
-  if (material instanceof LineBasicMaterial ||
-      material instanceof PointsMaterial) {
-    pixelRatio = material.uniforms.pixelRatio.value
-    // eslint-disable-next-line no-param-reassign
-    material.uniforms.pixelRatio.value = this.getPixelRatio()
-  }
-  const scope = internal(this)
-  scope.renderBufferDirect(camera, fog, geometry, material, object, group)
-  if (material instanceof LineBasicMaterial ||
-      material instanceof PointsMaterial) {
-    // eslint-disable-next-line no-param-reassign
-    material.uniforms.pixelRatio.value = pixelRatio
-  }
-}
-
 export default class Renderer extends Three.WebGLRenderer {
   constructor(...args) {
     super(...args)
     const scope = internal(this)
-    scope.renderBufferDirect = this.renderBufferDirect
-    this.renderBufferDirect = renderBufferDirect.bind(this)
+
+    // We're moving renderBufferDirect to the prototype
+    scope.renderBufferDirect = this.renderBufferDirect.bind(this)
+    delete this.renderBufferDirect
+  }
+
+  renderBufferDirect(camera, fog, geometry, material, object, group) {
+    let pixelRatio
+    if (material instanceof LineBasicMaterial ||
+        material instanceof PointsMaterial) {
+      pixelRatio = material.uniforms.pixelRatio.value
+      // eslint-disable-next-line no-param-reassign
+      material.uniforms.pixelRatio.value = this.getPixelRatio()
+    }
+    const scope = internal(this)
+    scope.renderBufferDirect(camera, fog, geometry, material, object, group)
+    if (material instanceof LineBasicMaterial ||
+        material instanceof PointsMaterial) {
+      // eslint-disable-next-line no-param-reassign
+      material.uniforms.pixelRatio.value = pixelRatio
+    }
   }
 }
