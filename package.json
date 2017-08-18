@@ -38,7 +38,7 @@
   },
   "peerDependencies": {
     "@takram/planck-core": "0.x",
-    "three": "0.x"
+    "three": "^0.87.0"
   },
   "devDependencies": {
     "@shotamatsuda/rollup-plugin-glslify": "^0.0.2",
@@ -71,7 +71,7 @@
     "sauce-connect-launcher": "^1.2.2",
     "saucelabs": "^1.4.0",
     "source-map-support": "^0.4.16",
-    "three": "^0.86.0",
+    "three": "^0.87.0",
     "uglify-js": "^3.0.27",
     "webpack": "^3.5.5"
   },
