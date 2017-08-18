@@ -26,53 +26,41 @@ import * as Three from 'three'
 
 import Namespace from '@takram/planck-core/src/Namespace'
 
+import LinePickingMaterial from './LinePickingMaterial'
+import MeshPickingMaterial from './MeshPickingMaterial'
+import Renderer from './Renderer'
+
+const linePickingMaterial = new LinePickingMaterial()
+const meshPickingMaterial = new MeshPickingMaterial()
+
 export const internal = Namespace('PickingRenderer')
 
-export default class PickingRenderer {
-  constructor({ renderer, width, height }) {
-    const scope = internal(this)
-    scope.renderer = renderer
-
-    // Create an smaller offscreen render target for picking
-    const pixelRatio = this.renderer.getPixelRatio()
-    const deviceWidth = width * pixelRatio / 4
-    const deviceHeight = height * pixelRatio / 4
-    this.target = new Three.WebGLRenderTarget(deviceWidth, deviceHeight, {
-      minFilter: Three.LinearFilter,
-      magFilter: Three.LinearFilter,
-      format: Three.RGBAFormat,
-      stencilBuffer: false,
-    })
-  }
-
-  render(scene, camera) {
-    const renderer = this.renderer
-    renderer.clearDepth()
-    renderer.render(scene, camera, this.target)
-  }
-
-  resize(width, height) {
-    const pixelRatio = this.renderer.getPixelRatio()
-    const deviceWidth = width * pixelRatio / 4
-    const deviceHeight = height * pixelRatio / 4
-    this.target.setSize(deviceWidth, deviceHeight)
-  }
-
-  pick(screen) {
-    const texture = this.target
-    const x = (screen.x + 1) * texture.width / 2
-    const y = (screen.y + 1) * texture.height / 2
+export default class PickingRenderer extends Renderer {
+  pick(renderTarget, x, y) {
+    const pixelX = (x + 1) * renderTarget.width / 2
+    const pixelY = (y + 1) * renderTarget.height / 2
     const buffer = new Uint8Array(4)
-    this.renderer.readRenderTargetPixels(texture, x, y, 1, 1, buffer)
-    const identifier = (buffer[0] << 24) |
-                       (buffer[1] << 16) |
-                       (buffer[2] << 8) |
-                       (buffer[3] << 0)
-    return identifier
+    this.readRenderTargetPixels(renderTarget, pixelX, pixelY, 1, 1, buffer)
+    return (buffer[0] << 24) |
+           (buffer[1] << 16) |
+           (buffer[2] << 8) |
+           (buffer[3] << 0)
   }
 
-  get renderer() {
-    const scope = internal(this)
-    return scope.renderer
+  renderBufferDirect(camera, fog, geometry, originalMaterial, object, group) {
+    let material = object.customPickingMaterial
+    if (!material) {
+      if (object.isMesh) {
+        material = meshPickingMaterial
+      } else if (object.isLine) {
+        material = linePickingMaterial
+      } else {
+        return // Abort
+      }
+    }
+    if (!material.isPickingMaterial) {
+      return // Abort
+    }
+    super.renderBufferDirect(camera, fog, geometry, material, object, group)
   }
 }
