@@ -23,8 +23,7 @@
 //
 
 export { default as LineBasicMaterial } from '../src/LineBasicMaterial'
-export { default as LinePickingMaterial } from '../src/LinePickingMaterial'
-export { default as MeshPickingMaterial } from '../src/MeshPickingMaterial'
+export { default as PickingMaterial } from '../src/PickingMaterial'
 export { default as PickingRenderer } from '../src/PickingRenderer'
 export { default as PointsMaterial } from '../src/PointsMaterial'
 export { default as Renderer } from '../src/Renderer'
