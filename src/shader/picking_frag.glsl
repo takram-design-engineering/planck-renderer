@@ -22,4 +22,9 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-#include <logdepthbuf_fragment>
+#include "picking_fragment_pars"
+
+void main() {
+  #include "picking_fragment_begin"
+  #include "picking_fragment_end"
+}

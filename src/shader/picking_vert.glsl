@@ -22,46 +22,9 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import * as Three from 'three'
+#include "picking_vertex_pars"
 
-import Shaders from './Shaders'
-
-import fragmentShader from './shader/mesh_picking_frag.glsl'
-import vertexShader from './shader/mesh_picking_vert.glsl'
-
-export default class MeshPickingMaterial extends Three.ShaderMaterial {
-  constructor() {
-    super()
-    this.uniforms = Three.UniformsUtils.merge([
-      Three.UniformsLib.common, {
-        identifier: { value: new Three.Vector4() },
-      },
-    ])
-    this.vertexShader = Shaders.include(vertexShader)
-    this.fragmentShader = Shaders.include(fragmentShader)
-  }
-
-  get identifier() {
-    const uniform = this.uniforms.identifier.value
-    return ((uniform & 0xff) << 24) |
-           ((uniform & 0xff) << 16) |
-           ((uniform & 0xff) << 8) |
-           ((uniform & 0xff) << 0)
-  }
-
-  set identifier(value) {
-    const uniform = this.uniforms.identifier.value
-    uniform.x = ((value >> 24) & 0xff) / 255.0
-    uniform.y = ((value >> 16) & 0xff) / 255.0
-    uniform.z = ((value >> 8) & 0xff) / 255.0
-    uniform.w = ((value >> 0) & 0xff) / 255.0
-  }
-
-  isMeshBasicMaterial() {
-    return true
-  }
-
-  isPickingMaterial() {
-    return true
-  }
+void main() {
+  #include "picking_vertex_begin"
+  #include "picking_vertex_end"
 }

@@ -26,12 +26,10 @@ import * as Three from 'three'
 
 import Namespace from '@takram/planck-core/src/Namespace'
 
-import LinePickingMaterial from './LinePickingMaterial'
-import MeshPickingMaterial from './MeshPickingMaterial'
+import PickingMaterial from './PickingMaterial'
 import Renderer from './Renderer'
 
-const linePickingMaterial = new LinePickingMaterial()
-const meshPickingMaterial = new MeshPickingMaterial()
+const pickingMaterial = new PickingMaterial()
 
 export const internal = Namespace('PickingRenderer')
 
@@ -50,13 +48,7 @@ export default class PickingRenderer extends Renderer {
   renderBufferDirect(camera, fog, geometry, originalMaterial, object, group) {
     let material = object.customPickingMaterial
     if (!material) {
-      if (object.isMesh) {
-        material = meshPickingMaterial
-      } else if (object.isLine) {
-        material = linePickingMaterial
-      } else {
-        return // Abort
-      }
+      material = pickingMaterial
     }
     if (!material.isPickingMaterial) {
       return // Abort

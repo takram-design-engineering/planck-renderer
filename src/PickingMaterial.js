@@ -22,4 +22,42 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-#include <begin_vertex>
+import * as Three from 'three'
+
+import Shaders from './Shaders'
+
+import fragmentShader from './shader/picking_frag.glsl'
+import vertexShader from './shader/picking_vert.glsl'
+
+export default class PickingMaterial extends Three.ShaderMaterial {
+  constructor() {
+    super()
+    this.uniforms = Three.UniformsUtils.merge([
+      Three.UniformsLib.common, {
+        identifier: { value: new Three.Vector4() },
+      },
+    ])
+    this.vertexShader = Shaders.include(vertexShader)
+    this.fragmentShader = Shaders.include(fragmentShader)
+  }
+
+  get identifier() {
+    const uniform = this.uniforms.identifier.value
+    return ((uniform & 0xff) << 24) |
+           ((uniform & 0xff) << 16) |
+           ((uniform & 0xff) << 8) |
+           ((uniform & 0xff) << 0)
+  }
+
+  set identifier(value) {
+    const uniform = this.uniforms.identifier.value
+    uniform.x = ((value >> 24) & 0xff) / 255.0
+    uniform.y = ((value >> 16) & 0xff) / 255.0
+    uniform.z = ((value >> 8) & 0xff) / 255.0
+    uniform.w = ((value >> 0) & 0xff) / 255.0
+  }
+
+  isPickingMaterial() {
+    return true
+  }
+}
