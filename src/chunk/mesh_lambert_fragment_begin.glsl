@@ -27,10 +27,6 @@
 
 #include <clipping_planes_fragment>
 
-#ifndef PLANCK_NO_OPACITY
-  vec4 diffuseColor = vec4(diffuse, opacity);
-#else
-  vec4 diffuseColor = vec4(diffuse, 1.0);
-#endif
+vec4 diffuseColor = vec4(diffuse, opacity);
 ReflectedLight reflectedLight = ReflectedLight(vec3(0.0), vec3(0.0), vec3(0.0), vec3(0.0));
 vec3 totalEmissiveRadiance = emissive;

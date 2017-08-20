@@ -27,9 +27,7 @@
 
 uniform vec3 diffuse;
 uniform vec3 emissive;
-#ifndef PLANCK_NO_OPACITY
-  uniform float opacity;
-#endif
+uniform float opacity;
 
 varying vec3 vLightFront;
 #ifdef DOUBLE_SIDED
