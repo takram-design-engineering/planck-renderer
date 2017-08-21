@@ -29,8 +29,6 @@ import Namespace from '@takram/planck-core/src/Namespace'
 import PickingMaterial from './PickingMaterial'
 import Renderer from './Renderer'
 
-const pickingMaterial = new PickingMaterial()
-
 export const internal = Namespace('PickingRenderer')
 
 export default class PickingRenderer extends Renderer {
@@ -48,7 +46,9 @@ export default class PickingRenderer extends Renderer {
   renderBufferDirect(camera, fog, geometry, originalMaterial, object, group) {
     let material = object.customPickingMaterial
     if (!material) {
-      material = pickingMaterial
+      material = new PickingMaterial()
+      material.identifier = object.identifier
+      object.customPickingMaterial = material
     }
     if (!material.isPickingMaterial) {
       return // Abort
