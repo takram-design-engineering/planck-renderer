@@ -28,8 +28,8 @@ import glslify from '@shotamatsuda/rollup-plugin-glslify'
 import nodeResolve from 'rollup-plugin-node-resolve'
 
 export default {
-  entry: './dist/planck-renderer.module.js',
-  sourceMap: true,
+  input: './dist/planck-renderer.module.js',
+  sourcemap: true,
   plugins: [
     glslify({ include: '../**/*.+(glsl|vert|frag)' }),
     nodeResolve({ browser: true }),
@@ -52,12 +52,12 @@ export default {
   globals: {
     'three': 'THREE',
   },
-  targets: [
+  output: [
     {
       format: 'umd',
       extend: true,
-      moduleName: 'Planck',
-      dest: './dist/planck-renderer.js',
+      name: 'Planck',
+      file: './dist/planck-renderer.js',
     },
   ],
 }
