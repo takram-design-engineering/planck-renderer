@@ -396,10 +396,10 @@ var PickingMaterial = function (_Three$ShaderMaterial) {
     },
     set: function set$$1(value) {
       var uniform = this.uniforms.identifier.value;
-      uniform.x = (value >> 24 & 0xff) / 255.0;
-      uniform.y = (value >> 16 & 0xff) / 255.0;
-      uniform.z = (value >> 8 & 0xff) / 255.0;
-      uniform.w = (value >> 0 & 0xff) / 255.0;
+      uniform.x = (value >>> 24 & 0xff) / 255.0;
+      uniform.y = (value >>> 16 & 0xff) / 255.0;
+      uniform.z = (value >>> 8 & 0xff) / 255.0;
+      uniform.w = (value >>> 0 & 0xff) / 255.0;
     }
   }]);
   return PickingMaterial;
@@ -599,8 +599,6 @@ var Renderer = function (_Three$WebGLRenderer) {
 //  DEALINGS IN THE SOFTWARE.
 //
 
-var pickingMaterial = new PickingMaterial();
-
 
 
 var PickingRenderer = function (_Renderer) {
@@ -625,7 +623,9 @@ var PickingRenderer = function (_Renderer) {
     value: function renderBufferDirect(camera, fog, geometry, originalMaterial, object, group) {
       var material = object.customPickingMaterial;
       if (!material) {
-        material = pickingMaterial;
+        material = new PickingMaterial();
+        material.identifier = object.identifier;
+        object.customPickingMaterial = material;
       }
       if (!material.isPickingMaterial) {
         return; // Abort
