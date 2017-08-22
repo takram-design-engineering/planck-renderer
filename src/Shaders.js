@@ -24,10 +24,13 @@
 
 import ShaderChunks from './ShaderChunks'
 
+const includePattern = /#include +"([\w\d.]+)"/g
+
 export default class Shaders {
-  static include(source, libraries = ShaderChunks) {
-    return source.replace(/#include +"([\w\d.]+)"/g, (match, include) => {
-      const replace = libraries[include]
+  static include(source, libraries = []) {
+    const chunks = Object.assign({}, ShaderChunks, ...libraries)
+    return source.replace(includePattern, (match, include) => {
+      const replace = chunks[include]
       if (replace === undefined) {
         throw new Error(`Could not resolve #include "${include}"`)
       }

@@ -36,9 +36,18 @@ export default class Renderer extends Three.WebGLRenderer {
     super(...args)
     const scope = internal(this)
 
-    // We're moving renderBufferDirect to the prototype
+    // We're moving render functions to the prototype
+    scope.render = this.render.bind(this)
+    delete this.render
     scope.renderBufferDirect = this.renderBufferDirect.bind(this)
     delete this.renderBufferDirect
+    scope.renderBufferImmediate = this.renderBufferImmediate.bind(this)
+    delete this.renderBufferImmediate
+  }
+
+  render(scene, camera, renderTarget, forceClear) {
+    const scope = internal(this)
+    scope.render(scene, camera, renderTarget, forceClear)
   }
 
   renderBufferDirect(camera, fog, geometry, material, object, group) {
@@ -56,5 +65,10 @@ export default class Renderer extends Three.WebGLRenderer {
       // eslint-disable-next-line no-param-reassign
       material.uniforms.pixelRatio.value = pixelRatio
     }
+  }
+
+  renderBufferImmediate(object, program, material) {
+    const scope = internal(this)
+    scope.renderBufferImmediate(object, program, material)
   }
 }
