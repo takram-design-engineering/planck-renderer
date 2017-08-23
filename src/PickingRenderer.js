@@ -77,9 +77,6 @@ export default class PickingRenderer extends Renderer {
     if (!material) {
       material = scope.material.clone()
     }
-    if (!material.isPickingMaterial) {
-      return // Abort
-    }
     const identifier = scope.nextIdentifier
     material.identifier = identifier
     scope.objects[identifier] = object
