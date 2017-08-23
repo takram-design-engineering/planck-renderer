@@ -32,27 +32,58 @@ import Renderer from './Renderer'
 export const internal = Namespace('PickingRenderer')
 
 export default class PickingRenderer extends Renderer {
+  constructor(...args) {
+    super(...args)
+    const scope = internal(this)
+    scope.objects = {}
+    scope.material = new PickingMaterial()
+  }
+
   pick(renderTarget, x, y) {
     const pixelX = (x + 1) * renderTarget.width / 2
     const pixelY = (y + 1) * renderTarget.height / 2
     const buffer = new Uint8Array(4)
     this.readRenderTargetPixels(renderTarget, pixelX, pixelY, 1, 1, buffer)
-    return (buffer[0] << 24) |
-           (buffer[1] << 16) |
-           (buffer[2] << 8) |
-           (buffer[3] << 0)
+    const identifier = (buffer[0] << 24) |
+                       (buffer[1] << 16) |
+                       (buffer[2] << 8) |
+                       (buffer[3] << 0)
+    const scope = internal(this)
+    const { objects } = scope
+    let targetIdentifier = identifier
+    let target = objects[targetIdentifier]
+    if (targetIdentifier !== 0 && !target) {
+      const identifiers = Object.keys(objects)
+      const index = identifiers.findIndex(other => other > identifier - 1) - 1
+      if (index) {
+        targetIdentifier = +identifiers[index]
+        target = objects[targetIdentifier]
+      }
+    }
+    return { identifier, target, targetIdentifier }
   }
 
-  renderBufferDirect(camera, fog, geometry, originalMaterial, object, group) {
+  render(scene, camera, renderTarget, forceClear) {
+    const scope = internal(this)
+    scope.objects = {}
+    scope.nextIdentifier = 1
+    super.render(scene, camera, renderTarget, forceClear)
+    scope.objects[scope.nextIdentifier] = null
+  }
+
+  renderBufferDirect(camera, fog, geometry, _, object, group) {
+    const scope = internal(this)
     let material = object.customPickingMaterial
     if (!material) {
-      material = new PickingMaterial()
-      material.identifier = object.identifier
-      object.customPickingMaterial = material
+      material = scope.material.clone()
     }
     if (!material.isPickingMaterial) {
       return // Abort
     }
+    const identifier = scope.nextIdentifier
+    material.identifier = identifier
+    scope.objects[identifier] = object
+    scope.nextIdentifier += object.identifierLength || 1
     super.renderBufferDirect(camera, fog, geometry, material, object, group)
   }
 }
