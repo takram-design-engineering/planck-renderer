@@ -50,18 +50,16 @@ export default class PickingRenderer extends Renderer {
                        (buffer[3] << 0)
     const scope = internal(this)
     const { objects } = scope
-    const object = objects[identifier]
-    let target = object
     let targetIdentifier = identifier
-    if (!object && identifier !== 0) {
+    let target = objects[targetIdentifier]
+    if (targetIdentifier !== 0 && !target) {
       const identifiers = Object.keys(objects)
-      const index = identifiers.find(other => identifier >= other)
+      const index = identifiers.findIndex(other => other > identifier - 1) - 1
       if (index) {
-        target = objects[index]
-        targetIdentifier = identifiers[index]
+        targetIdentifier = +identifiers[index]
+        target = objects[targetIdentifier]
       }
     }
-    console.log(identifier, target, targetIdentifier)
     return { identifier, target, targetIdentifier }
   }
 
@@ -70,6 +68,7 @@ export default class PickingRenderer extends Renderer {
     scope.objects = {}
     scope.nextIdentifier = 1
     super.render(scene, camera, renderTarget, forceClear)
+    scope.objects[scope.nextIdentifier] = null
   }
 
   renderBufferDirect(camera, fog, geometry, _, object, group) {
