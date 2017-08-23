@@ -30,12 +30,13 @@ import fragmentShader from './shader/points_frag.glsl'
 import vertexShader from './shader/points_vert.glsl'
 
 export default class PointsMaterial extends Three.ShaderMaterial {
-  constructor(parameters) {
+  constructor(parameters = {}) {
     super()
-    this.color = new Three.Color()
     const source = new Three.PointsMaterial()
     Three.PointsMaterial.prototype.copy.call(this, source)
     source.dispose()
+    this.setValues(parameters)
+
     this.uniforms = Three.UniformsUtils.merge([
       Three.ShaderLib.points.uniforms, {
         pixelRatio: { value: 1 },
@@ -44,9 +45,6 @@ export default class PointsMaterial extends Three.ShaderMaterial {
     ])
     this.vertexShader = Shader.include(vertexShader)
     this.fragmentShader = Shader.include(fragmentShader)
-    if (parameters !== undefined) {
-      this.setValues(parameters)
-    }
   }
 
   isPointsMaterial() {

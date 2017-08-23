@@ -30,8 +30,10 @@ import fragmentShader from './shader/picking_frag.glsl'
 import vertexShader from './shader/picking_vert.glsl'
 
 export default class PickingMaterial extends Three.ShaderMaterial {
-  constructor() {
+  constructor(parameters = {}) {
     super()
+    this.setValues(parameters)
+
     this.uniforms = Three.UniformsUtils.merge([
       Three.UniformsLib.common, {
         identifier: { value: new Three.Vector4() },
