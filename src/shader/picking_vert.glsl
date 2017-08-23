@@ -1,9 +1,9 @@
 // The MIT License
 // Copyright (C) 2016-Present Shota Matsuda
 
-#include "picking_vertex_pars"
+#include "picking_vert_params"
 
 void main() {
-  #include "picking_vertex_begin"
-  #include "picking_vertex_end"
+  #include "picking_vert_begin"
+  #include "picking_vert_end"
 }

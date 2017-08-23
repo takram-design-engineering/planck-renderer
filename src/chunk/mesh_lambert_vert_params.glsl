@@ -17,7 +17,7 @@ varying vec3 vLightFront;
 #include <uv2_pars_vertex>
 #include <envmap_pars_vertex>
 #include <bsdfs>
-#include <lights_pars>
+#include <lights_params>
 #include <color_pars_vertex>
 #include <fog_pars_vertex>
 #include <morphtarget_pars_vertex>
