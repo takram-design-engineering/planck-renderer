@@ -24,7 +24,7 @@
 
 import * as Three from 'three'
 
-import Shaders from './Shaders'
+import Shader from './Shader'
 
 import fragmentShader from './shader/line_basic_frag.glsl'
 import vertexShader from './shader/line_basic_vert.glsl'
@@ -43,8 +43,8 @@ export default class LineBasicMaterial extends Three.ShaderMaterial {
         targetPixelRatio: { value: 2 },
       },
     ])
-    this.vertexShader = Shaders.include(vertexShader)
-    this.fragmentShader = Shaders.include(fragmentShader)
+    this.vertexShader = Shader.include(vertexShader)
+    this.fragmentShader = Shader.include(fragmentShader)
     if (parameters !== undefined) {
       this.setValues(parameters)
     }

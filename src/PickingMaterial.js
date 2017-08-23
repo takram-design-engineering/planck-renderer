@@ -24,7 +24,7 @@
 
 import * as Three from 'three'
 
-import Shaders from './Shaders'
+import Shader from './Shader'
 
 import fragmentShader from './shader/picking_frag.glsl'
 import vertexShader from './shader/picking_vert.glsl'
@@ -37,8 +37,8 @@ export default class PickingMaterial extends Three.ShaderMaterial {
         identifier: { value: new Three.Vector4() },
       },
     ])
-    this.vertexShader = Shaders.include(vertexShader)
-    this.fragmentShader = Shaders.include(fragmentShader)
+    this.vertexShader = Shader.include(vertexShader)
+    this.fragmentShader = Shader.include(fragmentShader)
   }
 
   get identifier() {

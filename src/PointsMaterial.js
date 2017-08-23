@@ -24,7 +24,7 @@
 
 import * as Three from 'three'
 
-import Shaders from './Shaders'
+import Shader from './Shader'
 
 import fragmentShader from './shader/points_frag.glsl'
 import vertexShader from './shader/points_vert.glsl'
@@ -42,8 +42,8 @@ export default class PointsMaterial extends Three.ShaderMaterial {
         targetPixelRatio: { value: 2 },
       },
     ])
-    this.vertexShader = Shaders.include(vertexShader)
-    this.fragmentShader = Shaders.include(fragmentShader)
+    this.vertexShader = Shader.include(vertexShader)
+    this.fragmentShader = Shader.include(fragmentShader)
     if (parameters !== undefined) {
       this.setValues(parameters)
     }
