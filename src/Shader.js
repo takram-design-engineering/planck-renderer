@@ -22,13 +22,13 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import ShaderChunks from './ShaderChunks'
+import ShaderChunk from './ShaderChunk'
 
 const includePattern = /#include +"([\w\d.]+)"/g
 
-export default class Shaders {
-  static include(source, libraries = []) {
-    const chunks = Object.assign({}, ShaderChunks, ...libraries)
+export default {
+  include(source, libraries = []) {
+    const chunks = Object.assign({}, ShaderChunk, ...libraries)
     return source.replace(includePattern, (match, include) => {
       const replace = chunks[include]
       if (replace === undefined) {
@@ -36,5 +36,5 @@ export default class Shaders {
       }
       return this.include(replace)
     })
-  }
+  },
 }
