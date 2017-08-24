@@ -35,6 +35,8 @@ export default class PickingRenderer extends Renderer {
     const scope = internal(this)
     scope.objects = {}
     scope.material = new PickingMaterial()
+    scope.materialPool = [scope.material]
+    scope.materialIndex = 0
   }
 
   pick(renderTarget, x, y) {
@@ -64,6 +66,7 @@ export default class PickingRenderer extends Renderer {
   render(scene, camera, renderTarget, forceClear) {
     const scope = internal(this)
     scope.objects = {}
+    scope.materialIndex = 0
     scope.nextIdentifier = 1
     super.render(scene, camera, renderTarget, forceClear)
     scope.objects[scope.nextIdentifier] = null
@@ -73,7 +76,11 @@ export default class PickingRenderer extends Renderer {
     const scope = internal(this)
     let material = object.customPickingMaterial
     if (!material) {
-      material = scope.material.clone()
+      material = scope.materialPool[scope.materialIndex++]
+      if (!material) {
+        material = scope.material.clone()
+        scope.materialPool.push(material)
+      }
     }
     const identifier = scope.nextIdentifier
     material.identifier = identifier
