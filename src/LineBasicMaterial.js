@@ -31,7 +31,7 @@ import vertexShader from './shader/line_basic_vert.glsl'
 
 export default class LineBasicMaterial extends Three.ShaderMaterial {
   constructor(parameters = {}) {
-    super(parameters)
+    super()
     const source = new Three.LineBasicMaterial()
     Three.LineBasicMaterial.prototype.copy.call(this, source)
     source.dispose()
