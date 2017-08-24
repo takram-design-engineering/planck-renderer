@@ -22,6 +22,8 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
+import * as Three from 'three'
+
 import Namespace from '@takram/planck-core/src/Namespace'
 
 import PickingMaterial from './PickingMaterial'
@@ -37,6 +39,10 @@ export default class PickingRenderer extends Renderer {
     scope.material = new PickingMaterial()
     scope.materialPool = [scope.material]
     scope.materialIndex = 0
+
+    // Configurable layers to test against objects, which defaults to 31
+    this.layers = new Three.Layers()
+    this.layers.set(31)
   }
 
   pick(renderTarget, x, y) {
@@ -68,7 +74,14 @@ export default class PickingRenderer extends Renderer {
     scope.objects = {}
     scope.materialIndex = 0
     scope.nextIdentifier = 1
+
+    // Swap camera's layers to picking layers
+    const layers = camera.layers
+    camera.layers = this.layers // eslint-disable-line no-param-reassign
     super.render(scene, camera, renderTarget, forceClear)
+    camera.layers = layers // eslint-disable-line no-param-reassign
+
+    // Sentinel value for finding in ranges when picking
     scope.objects[scope.nextIdentifier] = null
   }
 
