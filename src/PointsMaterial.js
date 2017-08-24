@@ -32,7 +32,7 @@ import vertexShader from './shader/points_vert.glsl'
 export default class PointsMaterial extends Three.ShaderMaterial {
   constructor(parameters = {}) {
     super()
-  	this.color = new Three.Color(0xffffff)
+    this.color = new Three.Color(0xffffff)
     const source = new Three.PointsMaterial()
     Three.PointsMaterial.prototype.copy.call(this, source)
     source.dispose()

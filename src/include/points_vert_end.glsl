@@ -8,9 +8,9 @@
 #include <project_vertex>
 
 #ifdef USE_SIZEATTENUATION
-	gl_PointSize = size * (scale / - mvPosition.z);
+  gl_PointSize = size * (scale / - mvPosition.z);
 #else
-	gl_PointSize = size;
+  gl_PointSize = size;
 #endif
 
 #include <logdepthbuf_vertex>

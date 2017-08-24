@@ -10,5 +10,5 @@
 vec4 diffuseColor = vec4(1.0);
 
 #if DEPTH_PACKING == 3200
-	diffuseColor.a = opacity;
+  diffuseColor.a = opacity;
 #endif

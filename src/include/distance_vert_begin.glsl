@@ -8,8 +8,8 @@
 #include <uv_vertex>
 #include <skinbase_vertex>
 #ifdef USE_DISPLACEMENTMAP
-	#include <beginnormal_vertex>
-	#include <morphnormal_vertex>
-	#include <skinnormal_vertex>
+  #include <beginnormal_vertex>
+  #include <morphnormal_vertex>
+  #include <skinnormal_vertex>
 #endif
 #include <begin_vertex>

@@ -6,7 +6,7 @@
 // depth_frag.glsl
 
 #if DEPTH_PACKING == 3200
-	uniform float opacity;
+  uniform float opacity;
 #endif
 
 #include <common>
