@@ -22,19 +22,20 @@
 //  DEALINGS IN THE SOFTWARE.
 //
 
-import ShaderChunk from './ShaderChunk'
+import ShaderLib from './ShaderLib'
 
-const includePattern = /#include +"([\w\d.]+)"/g
+function include(source, includes = ShaderLib, scope = 'planck/') {
+  const pattern = new RegExp(`#include +<${scope}([\\w\\d.]+)>`, 'g')
+  const replace = (match, id) => {
+    const source = includes[id]
+    if (source === undefined) {
+      throw new Error(`Could not resolve #include <${scope}${id}>`)
+    }
+    return source.replace(pattern, replace)
+  }
+  return source.replace(pattern, replace)
+}
 
 export default {
-  include(source, libraries = []) {
-    const chunks = Object.assign({}, ShaderChunk, ...libraries)
-    return source.replace(includePattern, (match, include) => {
-      const replace = chunks[include]
-      if (replace === undefined) {
-        throw new Error(`Could not resolve #include "${include}"`)
-      }
-      return this.include(replace)
-    })
-  },
+  include,
 }
