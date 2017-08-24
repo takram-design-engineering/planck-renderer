@@ -31,7 +31,7 @@ export default {
   input: './dist/planck-renderer.module.js',
   sourcemap: true,
   plugins: [
-    glslify({ include: '../**/*.+(glsl|vert|frag)' }),
+    glslify(),
     nodeResolve({ browser: true }),
     commonjs(),
     babel({
