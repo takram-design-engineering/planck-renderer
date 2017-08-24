@@ -40,9 +40,8 @@ export default class PickingRenderer extends Renderer {
     scope.materialPool = [scope.material]
     scope.materialIndex = 0
 
-    // Configurable layers to test against objects, which defaults to 31
+    // Configurable layers to test against objects
     this.layers = new Three.Layers()
-    this.layers.set(31)
   }
 
   pick(renderTarget, x, y) {
@@ -75,7 +74,7 @@ export default class PickingRenderer extends Renderer {
     scope.materialIndex = 0
     scope.nextIdentifier = 1
 
-    // Swap camera's layers to picking layers
+    // Swap camera's layers with picking layers
     const layers = camera.layers
     camera.layers = this.layers // eslint-disable-line no-param-reassign
     super.render(scene, camera, renderTarget, forceClear)
