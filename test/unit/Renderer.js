@@ -30,6 +30,6 @@ const expect = chai.expect
 
 describe('Renderer', () => {
   it('', () => {
-    expect(Renderer).ok  // TODO: Write test
+    expect(Renderer).ok // TODO: Write test
   })
 })
