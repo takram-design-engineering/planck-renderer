@@ -59,10 +59,12 @@ export default class PickingRenderer extends Renderer {
     let target = objects[targetIdentifier]
     if (targetIdentifier !== 0 && !target) {
       const identifiers = Object.keys(objects)
-      const index = identifiers.findIndex(other => other > identifier - 1) - 1
-      if (index) {
-        targetIdentifier = +identifiers[index]
-        target = objects[targetIdentifier]
+      for (let index = 0; index < identifiers.length; ++index) {
+        if (identifiers[index] > identifier - 1) {
+          targetIdentifier = +identifiers[index - 1]
+          target = objects[targetIdentifier]
+          break
+        }
       }
     }
     return { identifier, target, targetIdentifier }
@@ -93,6 +95,8 @@ export default class PickingRenderer extends Renderer {
         material = scope.material.clone()
         scope.materialPool.push(material)
       }
+      material.depthTest = object.material.depthTest
+      material.depthWrite = object.material.depthWrite
     }
     const identifier = scope.nextIdentifier
     material.identifier = identifier
