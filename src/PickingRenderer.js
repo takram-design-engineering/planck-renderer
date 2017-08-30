@@ -49,10 +49,10 @@ export default class PickingRenderer extends Renderer {
     const pixelY = (y + 1) * renderTarget.height / 2
     const buffer = new Uint8Array(4)
     this.readRenderTargetPixels(renderTarget, pixelX, pixelY, 1, 1, buffer)
-    const identifier = (buffer[0] << 24) |
-                       (buffer[1] << 16) |
-                       (buffer[2] << 8) |
-                       (buffer[3] << 0)
+    const identifier = ((buffer[0] << 24) |
+                        (buffer[1] << 16) |
+                        (buffer[2] << 8) |
+                        (buffer[3] << 0)) >>> 0
     const scope = internal(this)
     const { objects } = scope
     let targetIdentifier = identifier
