@@ -23,8 +23,8 @@
 //
 
 export { default as LineBasicMaterial } from '../src/LineBasicMaterial'
+export { default as Picking } from '../src/Picking'
 export { default as PickingMaterial } from '../src/PickingMaterial'
-export { default as PickingRenderer } from '../src/PickingRenderer'
 export { default as PointsMaterial } from '../src/PointsMaterial'
 export { default as Renderer } from '../src/Renderer'
 export { default as Shader } from '../src/Shader'

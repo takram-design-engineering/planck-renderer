@@ -35,10 +35,10 @@ export default class Renderer extends Three.WebGLRenderer {
 
     // We're moving render functions to the prototype
     scope.render = this.render.bind(this)
-    delete this.render
     scope.renderBufferDirect = this.renderBufferDirect.bind(this)
-    delete this.renderBufferDirect
     scope.renderBufferImmediate = this.renderBufferImmediate.bind(this)
+    delete this.render
+    delete this.renderBufferDirect
     delete this.renderBufferImmediate
   }
 
@@ -52,20 +52,9 @@ export default class Renderer extends Three.WebGLRenderer {
   }
 
   renderBufferDirect(camera, fog, geometry, material, object, group) {
-    this.updateDefaultUniforms(material)
     const scope = internal(this)
-    scope.renderBufferDirect(camera, fog, geometry, material, object, group)
-  }
-
-  renderBufferImmediate(object, program, material) {
-    const scope = internal(this)
-    scope.renderBufferImmediate(object, program, material)
-  }
-
-  updateDefaultUniforms(material) {
     const uniforms = material.uniforms
     if (uniforms) {
-      const scope = internal(this)
       if (uniforms.cameraZoom) {
         uniforms.cameraZoom.value = scope.defaultUniforms.cameraZoom
       }
@@ -73,5 +62,11 @@ export default class Renderer extends Three.WebGLRenderer {
         uniforms.pixelRatio.value = scope.defaultUniforms.pixelRatio
       }
     }
+    scope.renderBufferDirect(camera, fog, geometry, material, object, group)
+  }
+
+  renderBufferImmediate(object, program, material) {
+    const scope = internal(this)
+    scope.renderBufferImmediate(object, program, material)
   }
 }
