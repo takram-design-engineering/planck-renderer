@@ -26,9 +26,6 @@ import * as Three from 'three'
 
 import Namespace from '@takram/planck-core/src/Namespace'
 
-import LineBasicMaterial from './LineBasicMaterial'
-import PointsMaterial from './PointsMaterial'
-
 export const internal = Namespace('Renderer')
 
 export default class Renderer extends Three.WebGLRenderer {
@@ -47,28 +44,34 @@ export default class Renderer extends Three.WebGLRenderer {
 
   render(scene, camera, renderTarget, forceClear) {
     const scope = internal(this)
+    scope.defaultUniforms = {
+      cameraZoom: camera.zoom || 1,
+      pixelRatio: this.getPixelRatio(),
+    }
     scope.render(scene, camera, renderTarget, forceClear)
   }
 
   renderBufferDirect(camera, fog, geometry, material, object, group) {
-    let pixelRatio
-    if (material instanceof LineBasicMaterial ||
-        material instanceof PointsMaterial) {
-      pixelRatio = material.uniforms.pixelRatio.value
-      // eslint-disable-next-line no-param-reassign
-      material.uniforms.pixelRatio.value = this.getPixelRatio()
-    }
+    this.updateDefaultUniforms(material)
     const scope = internal(this)
     scope.renderBufferDirect(camera, fog, geometry, material, object, group)
-    if (material instanceof LineBasicMaterial ||
-        material instanceof PointsMaterial) {
-      // eslint-disable-next-line no-param-reassign
-      material.uniforms.pixelRatio.value = pixelRatio
-    }
   }
 
   renderBufferImmediate(object, program, material) {
     const scope = internal(this)
     scope.renderBufferImmediate(object, program, material)
+  }
+
+  updateDefaultUniforms(material) {
+    const uniforms = material.uniforms
+    if (uniforms) {
+      const scope = internal(this)
+      if (uniforms.cameraZoom) {
+        uniforms.cameraZoom.value = scope.defaultUniforms.cameraZoom
+      }
+      if (uniforms.pixelRatio) {
+        uniforms.pixelRatio.value = scope.defaultUniforms.pixelRatio
+      }
+    }
   }
 }
