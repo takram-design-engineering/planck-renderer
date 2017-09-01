@@ -33,6 +33,8 @@ export default class PickingMaterial extends Three.ShaderMaterial {
   constructor(parameters = {}) {
     super()
     this.setValues(parameters)
+    this.fog = false
+    this.lights = false
 
     this.uniforms = Three.UniformsUtils.merge([
       Three.UniformsLib.common, {
