@@ -87,10 +87,8 @@ export default class Picking {
   render(scene, camera, renderTarget, forceClear) {
     const scope = internal(this)
     const renderer = scope.renderer
-    const gammaInput = renderer.gammaInput
-    const gammaOutput = renderer.gammaOutput
-    const shadowMapEnabled = renderer.shadowMap.enabled
-    const toneMapping = renderer.toneMapping
+    renderer.saveOptions()
+    renderer.autoClear = true
     renderer.gammaInput = false
     renderer.gammaOutput = false
     renderer.shadowMap.enabled = false
@@ -115,10 +113,7 @@ export default class Picking {
     scope.objects[scope.nextIdentifier] = null
 
     // Restore renderer's parameters
-    renderer.gammaInput = gammaInput
-    renderer.gammaOutput = gammaOutput
-    renderer.shadowMap.enabled = shadowMapEnabled
-    renderer.toneMapping = toneMapping
+    renderer.restoreOptions()
   }
 
   renderBufferDirect(camera, fog, geometry, mat, object, group) {
@@ -146,7 +141,9 @@ export default class Picking {
     scope.objects[identifier] = object
     scope.nextIdentifier += object.identifierLength || 1
 
-    this.renderer.constructor.prototype.renderBufferDirect.apply(this.renderer, [
+    // Call the original render buffer direct
+    const renderer = this.renderer
+    renderer.constructor.prototype.renderBufferDirect.apply(renderer, [
       camera, fog, geometry, material, object, group,
     ])
   }
