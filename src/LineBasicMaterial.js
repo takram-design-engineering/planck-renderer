@@ -37,6 +37,7 @@ export default class LineBasicMaterial extends Three.ShaderMaterial {
     Three.LineBasicMaterial.prototype.copy.call(this, source)
     source.dispose()
     this.setValues(parameters)
+    this.isLineBasicMaterial = true
 
     this.uniforms = Three.UniformsUtils.merge([
       Three.UniformsLib.common,
@@ -47,9 +48,5 @@ export default class LineBasicMaterial extends Three.ShaderMaterial {
     ])
     this.vertexShader = Shader.include(vertexShader)
     this.fragmentShader = Shader.include(fragmentShader)
-  }
-
-  isLineBasicMaterial() {
-    return true
   }
 }

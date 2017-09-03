@@ -37,6 +37,7 @@ export default class PointsMaterial extends Three.ShaderMaterial {
     Three.PointsMaterial.prototype.copy.call(this, source)
     source.dispose()
     this.setValues(parameters)
+    this.isPointsMaterial = true
 
     this.uniforms = Three.UniformsUtils.merge([
       Three.ShaderLib.points.uniforms, {
@@ -46,9 +47,5 @@ export default class PointsMaterial extends Three.ShaderMaterial {
     ])
     this.vertexShader = Shader.include(vertexShader)
     this.fragmentShader = Shader.include(fragmentShader)
-  }
-
-  isPointsMaterial() {
-    return true
   }
 }
