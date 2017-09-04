@@ -85,8 +85,7 @@ export default class Picking {
   }
 
   render(scene, camera, renderTarget, forceClear) {
-    const scope = internal(this)
-    const renderer = scope.renderer
+    const renderer = this.renderer
     renderer.saveOptions()
     renderer.autoClear = true
     renderer.gammaInput = false
@@ -95,6 +94,7 @@ export default class Picking {
     renderer.toneMapping = Three.NoToneMapping
 
     // Reset states for this frame
+    const scope = internal(this)
     scope.objects = {}
     scope.materialIndex = 0
     scope.nextIdentifier = 1
@@ -103,16 +103,20 @@ export default class Picking {
     const layers = camera.layers
     // eslint-disable-next-line no-param-reassign
     camera.layers = this.layers
+
+    // Render the scene using our render buffer direct
     renderer.renderBufferDirect = this.renderBufferDirect
     renderer.render(scene, camera, renderTarget, forceClear)
     delete renderer.renderBufferDirect
+
+    // Restore camera's layers we've swapped above
     // eslint-disable-next-line no-param-reassign
     camera.layers = layers
 
     // Sentinel value for finding in ranges when picking
     scope.objects[scope.nextIdentifier] = null
 
-    // Restore renderer's parameters
+    // Restore renderer's parameters we've changed above
     renderer.restoreOptions()
   }
 
@@ -124,18 +128,21 @@ export default class Picking {
     if (!material) {
       // Allocating a new material seems to require an additional memory for
       // storing its shader string, and leaks, even when we clone it, which
-      // must share its WebGLProgram.
+      // must share its WebGLProgram
       material = scope.materialPool[scope.materialIndex++]
       if (!material) {
         material = scope.material.clone()
         scope.materialPool.push(material)
       }
+
+      // Respect some of the options that affect the visibility of object
       material.depthTest = object.material.depthTest
       material.depthWrite = object.material.depthWrite
       material.polygonOffset = object.material.polygonOffset
       material.polygonOffsetFactor = object.material.polygonOffsetFactor
       material.polygonOffsetUnits = object.material.polygonOffsetUnits
     }
+
     const identifier = scope.nextIdentifier
     material.identifier = identifier
     scope.objects[identifier] = object
