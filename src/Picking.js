@@ -27,7 +27,6 @@ import * as Three from 'three'
 import Namespace from '@takram/planck-core/src/Namespace'
 
 import PickingMaterial from './PickingMaterial'
-import Renderer from './Renderer'
 
 export const internal = Namespace('Picking')
 
