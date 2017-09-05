@@ -35,6 +35,7 @@ export default class PickingMaterial extends Three.ShaderMaterial {
     this.setValues(parameters)
     this.fog = false
     this.lights = false
+    this.isPickingMaterial = true
 
     this.uniforms = Three.UniformsUtils.merge([
       Three.UniformsLib.common, {
@@ -59,9 +60,5 @@ export default class PickingMaterial extends Three.ShaderMaterial {
     uniform.y = ((value >>> 16) & 0xff) / 0xff
     uniform.z = ((value >>> 8) & 0xff) / 0xff
     uniform.w = ((value >>> 0) & 0xff) / 0xff
-  }
-
-  isPickingMaterial() {
-    return true
   }
 }
