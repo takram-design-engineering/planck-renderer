@@ -88,26 +88,26 @@ export default class Renderer extends Three.WebGLRenderer {
   saveOptions() {
     const scope = internal(this)
     const options = scope.options
-  	options.autoClear = this.autoClear
-  	options.autoClearColor = this.autoClearColor
-  	options.autoClearDepth = this.autoClearDepth
-  	options.autoClearStencil = this.autoClearStencil
-  	options.clippingPlanes = this.clippingPlanes
-  	options.gammaFactor = this.gammaFactor
-  	options.gammaInput = this.gammaInput
-  	options.gammaOutput = this.gammaOutput
-  	options.localClippingEnabled = this.localClippingEnabled
-  	options.maxMorphNormals = this.maxMorphNormals
-  	options.maxMorphTargets = this.maxMorphTargets
-  	options.physicallyCorrectLights = this.physicallyCorrectLights
-  	options.shadowMapEnabled = this.shadowMap.enabled
-  	options.shadowMapRenderReverseSided = this.shadowMap.renderReverseSided
-  	options.shadowMapRenderSingleSided = this.shadowMap.renderSingleSided
-  	options.shadowMapType = this.shadowMap.type
-  	options.sortObjects = this.sortObjects
-  	options.toneMapping = this.toneMapping
-  	options.toneMappingExposure = this.toneMappingExposure
-  	options.toneMappingWhitePoint = this.toneMappingWhitePoint
+    options.autoClear = this.autoClear
+    options.autoClearColor = this.autoClearColor
+    options.autoClearDepth = this.autoClearDepth
+    options.autoClearStencil = this.autoClearStencil
+    options.clippingPlanes = this.clippingPlanes
+    options.gammaFactor = this.gammaFactor
+    options.gammaInput = this.gammaInput
+    options.gammaOutput = this.gammaOutput
+    options.localClippingEnabled = this.localClippingEnabled
+    options.maxMorphNormals = this.maxMorphNormals
+    options.maxMorphTargets = this.maxMorphTargets
+    options.physicallyCorrectLights = this.physicallyCorrectLights
+    options.shadowMapEnabled = this.shadowMap.enabled
+    options.shadowMapRenderReverseSided = this.shadowMap.renderReverseSided
+    options.shadowMapRenderSingleSided = this.shadowMap.renderSingleSided
+    options.shadowMapType = this.shadowMap.type
+    options.sortObjects = this.sortObjects
+    options.toneMapping = this.toneMapping
+    options.toneMappingExposure = this.toneMappingExposure
+    options.toneMappingWhitePoint = this.toneMappingWhitePoint
   }
 
   restoreOptions() {
