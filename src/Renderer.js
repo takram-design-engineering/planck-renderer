@@ -78,6 +78,7 @@ export default class Renderer extends Three.WebGLRenderer {
     const scope = internal(this)
     const names = Object.keys(scope.framewiseUniforms)
     for (let i = 0; i < names.length; ++i) {
+      const name = names[i]
       const uniform = uniforms[name]
       if (uniform) {
         uniform.value = scope.framewiseUniforms[name]
