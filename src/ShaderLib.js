@@ -57,6 +57,12 @@ import picking_vert_params from './include/picking_vert_params.glsl'
 import points_frag_begin from './include/points_frag_begin.glsl'
 import points_frag_end from './include/points_frag_end.glsl'
 import points_frag_params from './include/points_frag_params.glsl'
+import points_picking_frag_begin from './include/points_picking_frag_begin.glsl'
+import points_picking_frag_end from './include/points_picking_frag_end.glsl'
+import points_picking_frag_params from './include/points_picking_frag_params.glsl'
+import points_picking_vert_begin from './include/points_picking_vert_begin.glsl'
+import points_picking_vert_end from './include/points_picking_vert_end.glsl'
+import points_picking_vert_params from './include/points_picking_vert_params.glsl'
 import points_vert_begin from './include/points_vert_begin.glsl'
 import points_vert_end from './include/points_vert_end.glsl'
 import points_vert_params from './include/points_vert_params.glsl'
@@ -95,6 +101,12 @@ export default {
   points_frag_begin,
   points_frag_end,
   points_frag_params,
+  points_picking_frag_begin,
+  points_picking_frag_end,
+  points_picking_frag_params,
+  points_picking_vert_begin,
+  points_picking_vert_end,
+  points_picking_vert_params,
   points_vert_begin,
   points_vert_end,
   points_vert_params,

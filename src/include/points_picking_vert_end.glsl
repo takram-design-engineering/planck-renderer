@@ -1,9 +1,5 @@
 // The MIT License
-// Copyright (C) 2010-2017 three.js authors
 // Copyright (C) 2016-Present Shota Matsuda
-
-// r87
-// points_vert.glsl
 
 #include <project_vertex>
 
@@ -13,8 +9,12 @@
   gl_PointSize = size;
 #endif
 
+{
+  // Add 1 to distinguish points draw or not
+  vec4 v = decomposeVertexID(vertexID + 1.0);
+  vVertexID = addVertexID(identifier, v) / 255.0;
+}
+
 #include <logdepthbuf_vertex>
 #include <clipping_planes_vertex>
 #include <worldpos_vertex>
-#include <shadowmap_vertex>
-#include <fog_vertex>
