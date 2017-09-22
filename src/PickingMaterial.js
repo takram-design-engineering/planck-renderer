@@ -48,10 +48,10 @@ export default class PickingMaterial extends Three.ShaderMaterial {
 
   get identifier() {
     const uniform = this.uniforms.identifier.value
-    return (((uniform.x * 0xff) & 0xff) << 24) |
-           (((uniform.y * 0xff) & 0xff) << 16) |
-           (((uniform.z * 0xff) & 0xff) << 8) |
-           (((uniform.w * 0xff) & 0xff) << 0) >>> 0
+    return ((((uniform.x * 0xff) & 0xff) << 24) |
+            (((uniform.y * 0xff) & 0xff) << 16) |
+            (((uniform.z * 0xff) & 0xff) << 8) |
+            (((uniform.w * 0xff) & 0xff) << 0)) >>> 0
   }
 
   set identifier(value) {

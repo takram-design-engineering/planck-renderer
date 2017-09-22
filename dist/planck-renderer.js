@@ -516,7 +516,7 @@ var PickingMaterial = function (_Three$ShaderMaterial) {
     key: 'identifier',
     get: function get$$1() {
       var uniform = this.uniforms.identifier.value;
-      return (uniform.x * 0xff & 0xff) << 24 | (uniform.y * 0xff & 0xff) << 16 | (uniform.z * 0xff & 0xff) << 8 | (uniform.w * 0xff & 0xff) << 0 >>> 0;
+      return ((uniform.x * 0xff & 0xff) << 24 | (uniform.y * 0xff & 0xff) << 16 | (uniform.z * 0xff & 0xff) << 8 | (uniform.w * 0xff & 0xff) << 0) >>> 0;
     },
     set: function set$$1(value) {
       var uniform = this.uniforms.identifier.value;
