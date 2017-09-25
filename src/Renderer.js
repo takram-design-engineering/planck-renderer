@@ -32,7 +32,7 @@ export default class Renderer extends Three.WebGLRenderer {
   constructor(...args) {
     super(...args)
     const scope = internal(this)
-    scope.framewiseUniforms = {}
+    scope.perFrameUniforms = {}
     scope.options = {}
     scope.render = this.render.bind(this)
     scope.renderBufferDirect = this.renderBufferDirect.bind(this)
@@ -44,30 +44,33 @@ export default class Renderer extends Three.WebGLRenderer {
 
   render(scene, camera, renderTarget, forceClear) {
     const scope = internal(this)
-    scope.framewiseUniforms = this.createFramewiseUniforms(scene, camera)
+    scope.perFrameUniforms = this.createPerFrameUniforms(scene, camera)
     scope.render(scene, camera, renderTarget, forceClear)
   }
 
   renderBufferDirect(camera, fog, geometry, material, object, group) {
     const scope = internal(this)
-    this.applyFramewiseUniforms(material)
+    this.applyPerFrameUniforms(material)
     scope.renderBufferDirect(camera, fog, geometry, material, object, group)
   }
 
   renderBufferImmediate(object, program, material) {
     const scope = internal(this)
-    this.applyFramewiseUniforms(material)
+    this.applyPerFrameUniforms(material)
     scope.renderBufferImmediate(object, program, material)
   }
 
-  createFramewiseUniforms(scene, camera) {
-    return {
-      cameraZoom: camera.zoom || 1,
+  createPerFrameUniforms(scene, camera) {
+    const uniforms = {
       pixelRatio: this.getPixelRatio(),
     }
+    if (camera.isOrthographicCamera) {
+      uniforms.cameraZoom = camera.zoom
+    }
+    return uniforms
   }
 
-  applyFramewiseUniforms(material) {
+  applyPerFrameUniforms(material) {
     if (!material) {
       return
     }
@@ -76,12 +79,12 @@ export default class Renderer extends Three.WebGLRenderer {
       return
     }
     const scope = internal(this)
-    const names = Object.keys(scope.framewiseUniforms)
+    const names = Object.keys(scope.perFrameUniforms)
     for (let i = 0; i < names.length; ++i) {
       const name = names[i]
       const uniform = uniforms[name]
       if (uniform) {
-        uniform.value = scope.framewiseUniforms[name]
+        uniform.value = scope.perFrameUniforms[name]
       }
     }
   }
