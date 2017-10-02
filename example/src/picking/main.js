@@ -41,10 +41,10 @@ let previousTarget
 function init() {
 	const aspect = window.innerWidth / window.innerHeight
 	camera = new Three.OrthographicCamera(
-    frustumSize * aspect / -2,
+    -frustumSize * aspect / 2,
     frustumSize * aspect / 2,
     frustumSize / 2,
-    frustumSize / -2,
+    -frustumSize / 2,
     0,
     2000)
 

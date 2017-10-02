@@ -70,9 +70,21 @@ var points_frag_end = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2
 
 var points_frag_params = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2010-2017 three.js authors\n// Copyright (C) 2016-Present Shota Matsuda\n\n// r87\n// points_frag.glsl\n\nuniform vec3 diffuse;\nuniform float opacity;\n\n#include <common>\n#include <packing>\n#include <color_pars_fragment>\n#include <map_particle_pars_fragment>\n#include <fog_pars_fragment>\n#include <shadowmap_pars_fragment>\n#include <logdepthbuf_pars_fragment>\n#include <clipping_planes_pars_fragment>\n";
 
+var points_picking_frag_begin = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\n#include <clipping_planes_fragment>\n\ngl_FragColor = vVertexID;\n";
+
+var points_picking_frag_end = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\n#include <logdepthbuf_fragment>\n";
+
+var points_picking_frag_params = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\n#include <common>\n#include <logdepthbuf_pars_fragment>\n#include <clipping_planes_pars_fragment>\n\nvarying vec4 vVertexID;\n";
+
+var points_picking_vert_begin = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\n#include <begin_vertex>\n";
+
+var points_picking_vert_end = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\n#include <project_vertex>\n\n#ifdef USE_SIZEATTENUATION\n  gl_PointSize = size * (scale / -mvPosition.z);\n#else\n  gl_PointSize = size;\n#endif\n\n{\n  // Add 1 to distinguish points draw or not\n  vec4 v = decomposeVertexID(vertexID + 1.0);\n  vVertexID = addVertexID(identifier, v) / 255.0;\n}\n\n#include <logdepthbuf_vertex>\n#include <clipping_planes_vertex>\n#include <worldpos_vertex>\n";
+
+var points_picking_vert_params = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\nuniform float size;\nuniform float scale;\n\n#include <common>\n#include <logdepthbuf_pars_vertex>\n#include <clipping_planes_pars_vertex>\n\nuniform vec4 identifier;\n\nattribute float vertexID;\n\nvarying vec4 vVertexID;\n\nvec4 decomposeVertexID(float v) {\n  float x = floor(v / 16777216.0);\n  v -= x * 16777216.0;\n  float y = floor(v / 65536.0);\n  v -= y * 65536.0;\n  float z = floor(v / 256.0);\n  v -= z * 256.0;\n  return vec4(x, y, z, v);\n}\n\nvec4 addVertexID(vec4 v, vec4 id) {\n  vec4 r = floor(v * 255.0 + 0.5) + id;\n  r.z += floor(r.w / 256.0);\n  r.y += floor(r.z / 256.0);\n  r.x += floor(r.y / 256.0);\n  return mod(r, 256.0);\n}\n";
+
 var points_vert_begin = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2010-2017 three.js authors\n// Copyright (C) 2016-Present Shota Matsuda\n\n// r87\n// points_vert.glsl\n\n#include <color_vertex>\n#include <begin_vertex>\n";
 
-var points_vert_end = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2010-2017 three.js authors\n// Copyright (C) 2016-Present Shota Matsuda\n\n// r87\n// points_vert.glsl\n\n#include <project_vertex>\n\n#ifdef USE_SIZEATTENUATION\n  gl_PointSize = size * (scale / - mvPosition.z);\n#else\n  gl_PointSize = size;\n#endif\n\n#include <logdepthbuf_vertex>\n#include <clipping_planes_vertex>\n#include <worldpos_vertex>\n#include <shadowmap_vertex>\n#include <fog_vertex>\n";
+var points_vert_end = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2010-2017 three.js authors\n// Copyright (C) 2016-Present Shota Matsuda\n\n// r87\n// points_vert.glsl\n\n#include <project_vertex>\n\n#ifdef USE_SIZEATTENUATION\n  gl_PointSize = size * (scale / -mvPosition.z);\n#else\n  gl_PointSize = size;\n#endif\n\n#include <logdepthbuf_vertex>\n#include <clipping_planes_vertex>\n#include <worldpos_vertex>\n#include <shadowmap_vertex>\n#include <fog_vertex>\n";
 
 var points_vert_params = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2010-2017 three.js authors\n// Copyright (C) 2016-Present Shota Matsuda\n\n// r87\n// points_vert.glsl\n\nuniform float size;\nuniform float scale;\n\n#include <common>\n#include <color_pars_vertex>\n#include <fog_pars_vertex>\n#include <shadowmap_pars_vertex>\n#include <logdepthbuf_pars_vertex>\n#include <clipping_planes_pars_vertex>\n";
 
@@ -136,6 +148,12 @@ var ShaderLib$1 = {
   points_frag_begin: points_frag_begin,
   points_frag_end: points_frag_end,
   points_frag_params: points_frag_params,
+  points_picking_frag_begin: points_picking_frag_begin,
+  points_picking_frag_end: points_picking_frag_end,
+  points_picking_frag_params: points_picking_frag_params,
+  points_picking_vert_begin: points_picking_vert_begin,
+  points_picking_vert_end: points_picking_vert_end,
+  points_picking_vert_params: points_picking_vert_params,
   points_vert_begin: points_vert_begin,
   points_vert_end: points_vert_end,
   points_vert_params: points_vert_params
@@ -727,16 +745,86 @@ var PointsMaterial$1 = function (_Three$ShaderMaterial) {
     _this.setValues(parameters);
     _this.isPointsMaterial = true;
 
-    _this.uniforms = Three.UniformsUtils.merge([Three.ShaderLib.points.uniforms, {
-      pixelRatio: { value: 1 },
-      targetPixelRatio: { value: 2 }
-    }]);
+    _this.uniforms = Three.UniformsUtils.merge([Three.ShaderLib.points.uniforms]);
     _this.vertexShader = Shader.include(vertexShader$2);
     _this.fragmentShader = Shader.include(fragmentShader$2);
     return _this;
   }
 
   return PointsMaterial$$1;
+}(Three.ShaderMaterial);
+
+var fragmentShader$3 = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\n#include <planck/points_picking_frag_params>\n\nvoid main() {\n  #include <planck/points_picking_frag_begin>\n  #include <planck/points_picking_frag_end>\n}\n";
+
+var vertexShader$3 = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\n#include <planck/points_picking_vert_params>\n\nvoid main() {\n  #include <planck/points_picking_vert_begin>\n  #include <planck/points_picking_vert_end>\n}\n";
+
+//
+//  The MIT License
+//
+//  Copyright (C) 2016-Present Shota Matsuda
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a
+//  copy of this software and associated documentation files (the "Software"),
+//  to deal in the Software without restriction, including without limitation
+//  the rights to use, copy, modify, merge, publish, distribute, sublicense,
+//  and/or sell copies of the Software, and to permit persons to whom the
+//  Software is furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+//  DEALINGS IN THE SOFTWARE.
+//
+
+var PointsPickingMaterial = function (_Three$ShaderMaterial) {
+  inherits(PointsPickingMaterial, _Three$ShaderMaterial);
+
+  function PointsPickingMaterial() {
+    var parameters = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    classCallCheck(this, PointsPickingMaterial);
+
+    var _this = possibleConstructorReturn(this, (PointsPickingMaterial.__proto__ || Object.getPrototypeOf(PointsPickingMaterial)).call(this));
+
+    _this.color = new Three.Color(0xffffff);
+    var source = new Three.PointsMaterial();
+    Three.PointsMaterial.prototype.copy.call(_this, source);
+    source.dispose();
+    delete _this.color;
+    _this.setValues(parameters);
+    _this.fog = false;
+    _this.lights = false;
+    _this.isPointsMaterial = true;
+    _this.isPickingMaterial = true;
+
+    _this.uniforms = Three.UniformsUtils.merge([Three.ShaderLib.points.uniforms, {
+      identifier: { value: new Three.Vector4() }
+    }]);
+    _this.vertexShader = Shader.include(vertexShader$3);
+    _this.fragmentShader = Shader.include(fragmentShader$3);
+    return _this;
+  }
+
+  createClass(PointsPickingMaterial, [{
+    key: 'identifier',
+    get: function get$$1() {
+      var uniform = this.uniforms.identifier.value;
+      return ((uniform.x * 0xff & 0xff) << 24 | (uniform.y * 0xff & 0xff) << 16 | (uniform.z * 0xff & 0xff) << 8 | (uniform.w * 0xff & 0xff) << 0) >>> 0;
+    },
+    set: function set$$1(value) {
+      var uniform = this.uniforms.identifier.value;
+      uniform.x = (value >>> 24 & 0xff) / 0xff;
+      uniform.y = (value >>> 16 & 0xff) / 0xff;
+      uniform.z = (value >>> 8 & 0xff) / 0xff;
+      uniform.w = (value >>> 0 & 0xff) / 0xff;
+    }
+  }]);
+  return PointsPickingMaterial;
 }(Three.ShaderMaterial);
 
 //
@@ -927,6 +1015,7 @@ exports.LineBasicMaterial = LineBasicMaterial$1;
 exports.Picking = Picking;
 exports.PickingMaterial = PickingMaterial;
 exports.PointsMaterial = PointsMaterial$1;
+exports.PointsPickingMaterial = PointsPickingMaterial;
 exports.Renderer = Renderer;
 exports.Shader = Shader;
 exports.ShaderLib = ShaderLib$1;

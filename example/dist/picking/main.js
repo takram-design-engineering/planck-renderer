@@ -119,7 +119,7 @@ var previousTarget = void 0;
 
 function init() {
 	var aspect = window.innerWidth / window.innerHeight;
-	camera = new Three.OrthographicCamera(frustumSize * aspect / -2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / -2, 0, 2000);
+	camera = new Three.OrthographicCamera(-frustumSize * aspect / 2, frustumSize * aspect / 2, frustumSize / 2, -frustumSize / 2, 0, 2000);
 
 	scene = new Three.Scene();
 	scene.background = new Three.Color(0xffffff);
