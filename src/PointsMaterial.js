@@ -24,32 +24,25 @@
 
 import * as Three from 'three'
 
-import Shaders from './Shaders'
+import Shader from './Shader'
 
 import fragmentShader from './shader/points_frag.glsl'
 import vertexShader from './shader/points_vert.glsl'
 
 export default class PointsMaterial extends Three.ShaderMaterial {
-  constructor(parameters) {
+  constructor(parameters = {}) {
     super()
-    this.color = new Three.Color()
+    this.color = new Three.Color(0xffffff)
     const source = new Three.PointsMaterial()
     Three.PointsMaterial.prototype.copy.call(this, source)
     source.dispose()
-    this.uniforms = Three.UniformsUtils.merge([
-      Three.ShaderLib.points.uniforms, {
-        pixelRatio: { value: 1 },
-        targetPixelRatio: { value: 2 },
-      },
-    ])
-    this.vertexShader = Shaders.include(vertexShader)
-    this.fragmentShader = Shaders.include(fragmentShader)
-    if (parameters !== undefined) {
-      this.setValues(parameters)
-    }
-  }
+    this.setValues(parameters)
+    this.isPointsMaterial = true
 
-  isPointsMaterial() {
-    return true
+    this.uniforms = Three.UniformsUtils.merge([
+      Three.ShaderLib.points.uniforms,
+    ])
+    this.vertexShader = Shader.include(vertexShader)
+    this.fragmentShader = Shader.include(fragmentShader)
   }
 }

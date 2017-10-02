@@ -24,18 +24,21 @@
 
 import * as Three from 'three'
 
-import Shaders from './Shaders'
+import Shader from './Shader'
 
 import fragmentShader from './shader/line_basic_frag.glsl'
 import vertexShader from './shader/line_basic_vert.glsl'
 
 export default class LineBasicMaterial extends Three.ShaderMaterial {
-  constructor(parameters) {
+  constructor(parameters = {}) {
     super()
-    this.color = new Three.Color()
+    this.color = new Three.Color(0xffffff)
     const source = new Three.LineBasicMaterial()
     Three.LineBasicMaterial.prototype.copy.call(this, source)
     source.dispose()
+    this.setValues(parameters)
+    this.isLineBasicMaterial = true
+
     this.uniforms = Three.UniformsUtils.merge([
       Three.UniformsLib.common,
       Three.UniformsLib.fog, {
@@ -43,14 +46,7 @@ export default class LineBasicMaterial extends Three.ShaderMaterial {
         targetPixelRatio: { value: 2 },
       },
     ])
-    this.vertexShader = Shaders.include(vertexShader)
-    this.fragmentShader = Shaders.include(fragmentShader)
-    if (parameters !== undefined) {
-      this.setValues(parameters)
-    }
-  }
-
-  isLineBasicMaterial() {
-    return true
+    this.vertexShader = Shader.include(vertexShader)
+    this.fragmentShader = Shader.include(fragmentShader)
   }
 }
