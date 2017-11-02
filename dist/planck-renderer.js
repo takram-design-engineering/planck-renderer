@@ -593,16 +593,20 @@ var Picking = function () {
   createClass(Picking, [{
     key: 'pick',
     value: function pick(renderTarget, x, y) {
+      var _renderer;
+
       var scope = internal(this);
-      var buffer = scope.buffer;
+      var buffer = scope.buffer.buffer;
+
       var pixelX = (x + 1) * renderTarget.width / 2;
       var pixelY = (y + 1) * renderTarget.height / 2;
-      this.renderer.readRenderTargetPixels(renderTarget, pixelX, pixelY, 1, 1, buffer);
+      (_renderer = this.renderer).readRenderTargetPixels.apply(_renderer, [renderTarget, pixelX, pixelY, 1, 1, buffer]);
 
       // An identifier should always be unsigned
       var identifier = (buffer[0] << 24 | buffer[1] << 16 | buffer[2] << 8 | buffer[3] << 0) >>> 0;
 
       var objects = scope.objects;
+
       var targetIdentifier = identifier;
       var target = objects[targetIdentifier];
 
@@ -624,6 +628,7 @@ var Picking = function () {
     key: 'render',
     value: function render(scene, camera, renderTarget, forceClear) {
       var renderer = this.renderer;
+
       renderer.saveOptions();
       renderer.autoClear = true;
       renderer.gammaInput = false;
@@ -640,6 +645,7 @@ var Picking = function () {
       // Swap camera's layers with picking layers
       var layers = camera.layers;
       // eslint-disable-next-line no-param-reassign
+
       camera.layers = this.layers;
 
       // Render the scene using our render buffer direct
@@ -689,6 +695,7 @@ var Picking = function () {
 
       // Call the original render buffer direct
       var renderer = this.renderer;
+
       renderer.constructor.prototype.renderBufferDirect.apply(renderer, [camera, fog, geometry, material, object, group]);
     }
   }, {
@@ -918,6 +925,7 @@ var Renderer = function (_Three$WebGLRenderer) {
         return;
       }
       var uniforms = material.uniforms;
+
       if (!uniforms) {
         return;
       }
@@ -936,6 +944,7 @@ var Renderer = function (_Three$WebGLRenderer) {
     value: function saveOptions() {
       var scope = internal$1(this);
       var options = scope.options;
+
       options.autoClear = this.autoClear;
       options.autoClearColor = this.autoClearColor;
       options.autoClearDepth = this.autoClearDepth;
@@ -962,6 +971,7 @@ var Renderer = function (_Three$WebGLRenderer) {
     value: function restoreOptions() {
       var scope = internal$1(this);
       var options = scope.options;
+
       this.autoClear = options.autoClear;
       this.autoClearColor = options.autoClearColor;
       this.autoClearDepth = options.autoClearDepth;
