@@ -26,7 +26,7 @@ import chai from 'chai'
 
 import { Renderer } from '../..'
 
-const expect = chai.expect
+const { expect } = chai
 
 describe('Renderer', () => {
   it('', () => {

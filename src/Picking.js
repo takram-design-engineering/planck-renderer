@@ -52,11 +52,12 @@ export default class Picking {
 
   pick(renderTarget, x, y) {
     const scope = internal(this)
-    const buffer = scope.buffer
+    const { buffer } = scope.buffer
     const pixelX = (x + 1) * renderTarget.width / 2
     const pixelY = (y + 1) * renderTarget.height / 2
-    this.renderer.readRenderTargetPixels(
-      renderTarget, pixelX, pixelY, 1, 1, buffer)
+    this.renderer.readRenderTargetPixels(...[
+      renderTarget, pixelX, pixelY, 1, 1, buffer,
+    ])
 
     // An identifier should always be unsigned
     const identifier = ((buffer[0] << 24) |
@@ -64,7 +65,7 @@ export default class Picking {
                         (buffer[2] << 8) |
                         (buffer[3] << 0)) >>> 0
 
-    const objects = scope.objects
+    const { objects } = scope
     let targetIdentifier = identifier
     let target = objects[targetIdentifier]
 
@@ -84,7 +85,7 @@ export default class Picking {
   }
 
   render(scene, camera, renderTarget, forceClear) {
-    const renderer = this.renderer
+    const { renderer } = this
     renderer.saveOptions()
     renderer.autoClear = true
     renderer.gammaInput = false
@@ -99,7 +100,7 @@ export default class Picking {
     scope.nextIdentifier = 1
 
     // Swap camera's layers with picking layers
-    const layers = camera.layers
+    const { layers } = camera
     // eslint-disable-next-line no-param-reassign
     camera.layers = this.layers
 
@@ -148,7 +149,7 @@ export default class Picking {
     scope.nextIdentifier += object.identifierLength || 1
 
     // Call the original render buffer direct
-    const renderer = this.renderer
+    const { renderer } = this
     renderer.constructor.prototype.renderBufferDirect.apply(renderer, [
       camera, fog, geometry, material, object, group,
     ])

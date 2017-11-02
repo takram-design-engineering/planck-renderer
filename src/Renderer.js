@@ -74,7 +74,7 @@ export default class Renderer extends Three.WebGLRenderer {
     if (!material) {
       return
     }
-    const uniforms = material.uniforms
+    const { uniforms } = material
     if (!uniforms) {
       return
     }
@@ -91,7 +91,7 @@ export default class Renderer extends Three.WebGLRenderer {
 
   saveOptions() {
     const scope = internal(this)
-    const options = scope.options
+    const { options } = scope
     options.autoClear = this.autoClear
     options.autoClearColor = this.autoClearColor
     options.autoClearDepth = this.autoClearDepth
@@ -116,7 +116,7 @@ export default class Renderer extends Three.WebGLRenderer {
 
   restoreOptions() {
     const scope = internal(this)
-    const options = scope.options
+    const { options } = scope
     this.autoClear = options.autoClear
     this.autoClearColor = options.autoClearColor
     this.autoClearDepth = options.autoClearDepth
