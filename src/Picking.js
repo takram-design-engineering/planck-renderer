@@ -52,12 +52,13 @@ export default class Picking {
 
   pick(renderTarget, x, y) {
     const scope = internal(this)
-    const { buffer } = scope.buffer
+    const { buffer } = scope
     const pixelX = (x + 1) * renderTarget.width / 2
     const pixelY = (y + 1) * renderTarget.height / 2
-    this.renderer.readRenderTargetPixels(...[
-      renderTarget, pixelX, pixelY, 1, 1, buffer,
-    ])
+    this.renderer.readRenderTargetPixels(
+      renderTarget, pixelX, pixelY,
+      1, 1, buffer,
+    )
 
     // An identifier should always be unsigned
     const identifier = ((buffer[0] << 24) |
