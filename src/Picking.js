@@ -1,26 +1,5 @@
-//
-//  The MIT License
-//
-//  Copyright (C) 2016-Present Shota Matsuda
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a
-//  copy of this software and associated documentation files (the "Software"),
-//  to deal in the Software without restriction, including without limitation
-//  the rights to use, copy, modify, merge, publish, distribute, sublicense,
-//  and/or sell copies of the Software, and to permit persons to whom the
-//  Software is furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-//  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-//  DEALINGS IN THE SOFTWARE.
-//
+// The MIT License
+// Copyright (C) 2016-Present Shota Matsuda
 
 import * as Three from 'three'
 
@@ -52,11 +31,13 @@ export default class Picking {
 
   pick(renderTarget, x, y) {
     const scope = internal(this)
-    const buffer = scope.buffer
+    const { buffer } = scope
     const pixelX = (x + 1) * renderTarget.width / 2
     const pixelY = (y + 1) * renderTarget.height / 2
     this.renderer.readRenderTargetPixels(
-      renderTarget, pixelX, pixelY, 1, 1, buffer)
+      renderTarget, pixelX, pixelY,
+      1, 1, buffer,
+    )
 
     // An identifier should always be unsigned
     const identifier = ((buffer[0] << 24) |
@@ -64,7 +45,7 @@ export default class Picking {
                         (buffer[2] << 8) |
                         (buffer[3] << 0)) >>> 0
 
-    const objects = scope.objects
+    const { objects } = scope
     let targetIdentifier = identifier
     let target = objects[targetIdentifier]
 
@@ -84,7 +65,7 @@ export default class Picking {
   }
 
   render(scene, camera, renderTarget, forceClear) {
-    const renderer = this.renderer
+    const { renderer } = this
     renderer.saveOptions()
     renderer.autoClear = true
     renderer.gammaInput = false
@@ -99,7 +80,7 @@ export default class Picking {
     scope.nextIdentifier = 1
 
     // Swap camera's layers with picking layers
-    const layers = camera.layers
+    const { layers } = camera
     // eslint-disable-next-line no-param-reassign
     camera.layers = this.layers
 
@@ -148,7 +129,7 @@ export default class Picking {
     scope.nextIdentifier += object.identifierLength || 1
 
     // Call the original render buffer direct
-    const renderer = this.renderer
+    const { renderer } = this
     renderer.constructor.prototype.renderBufferDirect.apply(renderer, [
       camera, fog, geometry, material, object, group,
     ])
