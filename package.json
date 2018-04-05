@@ -1,6 +1,6 @@
 {
   "name": "@takram/planck-renderer",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "",
   "repository": "takram-design-engineering/planck-renderer",
   "main": "dist/planck-renderer.js",
