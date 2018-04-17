@@ -137,32 +137,28 @@
 
   // The MIT License
 
-  var Shader = {
-    include: function include(source) {
-      var includes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ShaderLib;
-      var scope = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'planck/';
+  function includeShader(source) {
+    var includes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ShaderLib;
+    var path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'planck/';
 
-      var pattern = new RegExp('#include +<' + scope + '([\\w\\d.]+)>', 'g');
-      var replace = function replace(match, id) {
-        var source = includes[id];
-        if (source === undefined) {
-          throw new Error('Could not resolve #include <' + scope + id + '>');
-        }
-        return source.replace(pattern, replace);
-      };
+    var pattern = new RegExp('#include +<' + path + '([\\w\\d.]+)>', 'g');
+    var replace = function replace(match, id) {
+      var source = includes[id];
+      if (source === undefined) {
+        throw new Error('Could not resolve #include <' + path + id + '>');
+      }
       return source.replace(pattern, replace);
-    }
+    };
+    return source.replace(pattern, replace);
+  }
+
+  var Shader = {
+    include: includeShader
   };
 
   var fragmentShader = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\n#include <planck/line_basic_frag_params>\n\nuniform float pixelRatio;\nuniform float targetPixelRatio;\n\nvoid main() {\n  #include <planck/line_basic_frag_begin>\n\n  diffuseColor.a *= pixelRatio / targetPixelRatio;\n\n  #include <planck/line_basic_frag_end>\n}\n";
 
   var vertexShader = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\n#include <planck/line_basic_vert_params>\n\nvoid main() {\n  #include <planck/line_basic_vert_begin>\n  #include <planck/line_basic_vert_end>\n}\n";
-
-  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  };
 
   var classCallCheck = function (instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -187,20 +183,6 @@
       return Constructor;
     };
   }();
-
-  var _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
 
   var inherits = function (subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
@@ -248,8 +230,8 @@
         pixelRatio: { value: 1 },
         targetPixelRatio: { value: 2 }
       }]);
-      _this.vertexShader = Shader.include(vertexShader);
-      _this.fragmentShader = Shader.include(fragmentShader);
+      _this.vertexShader = includeShader(vertexShader);
+      _this.fragmentShader = includeShader(fragmentShader);
       return _this;
     }
 
@@ -265,8 +247,6 @@
       if (object[symbol] == null) {
         if (typeof init === 'function') {
           object[symbol] = init({});
-        } else if ((typeof init === 'undefined' ? 'undefined' : _typeof(init)) === 'object') {
-          object[symbol] = _extends({}, init);
         } else {
           object[symbol] = {};
         }
@@ -298,8 +278,8 @@
       _this.uniforms = Three.UniformsUtils.merge([Three.UniformsLib.common, {
         identifier: { value: new Three.Vector4() }
       }]);
-      _this.vertexShader = Shader.include(vertexShader$1);
-      _this.fragmentShader = Shader.include(fragmentShader$1);
+      _this.vertexShader = includeShader(vertexShader$1);
+      _this.fragmentShader = includeShader(fragmentShader$1);
       return _this;
     }
 
@@ -393,7 +373,6 @@
 
         // Swap camera's layers with picking layers
         var layers = camera.layers;
-        // eslint-disable-next-line no-param-reassign
 
         camera.layers = this.layers;
 
@@ -403,7 +382,6 @@
         delete renderer.renderBufferDirect;
 
         // Restore camera's layers we've swapped above
-        // eslint-disable-next-line no-param-reassign
         camera.layers = layers;
 
         // Sentinel value for finding in ranges when picking
@@ -450,8 +428,7 @@
     }, {
       key: 'renderer',
       get: function get$$1() {
-        var scope = internal(this);
-        return scope.renderer;
+        return internal(this).renderer;
       }
     }]);
     return Picking;
@@ -480,8 +457,8 @@
       _this.isPointsMaterial = true;
 
       _this.uniforms = Three.UniformsUtils.merge([Three.ShaderLib.points.uniforms]);
-      _this.vertexShader = Shader.include(vertexShader$2);
-      _this.fragmentShader = Shader.include(fragmentShader$2);
+      _this.vertexShader = includeShader(vertexShader$2);
+      _this.fragmentShader = includeShader(fragmentShader$2);
       return _this;
     }
 
@@ -517,8 +494,8 @@
       _this.uniforms = Three.UniformsUtils.merge([Three.ShaderLib.points.uniforms, {
         identifier: { value: new Three.Vector4() }
       }]);
-      _this.vertexShader = Shader.include(vertexShader$3);
-      _this.fragmentShader = Shader.include(fragmentShader$3);
+      _this.vertexShader = includeShader(vertexShader$3);
+      _this.fragmentShader = includeShader(fragmentShader$3);
       return _this;
     }
 
@@ -625,8 +602,8 @@
     }, {
       key: 'saveOptions',
       value: function saveOptions() {
-        var scope = internal$1(this);
-        var options = scope.options;
+        var _internal = internal$1(this),
+            options = _internal.options;
 
         options.autoClear = this.autoClear;
         options.autoClearColor = this.autoClearColor;
@@ -641,8 +618,6 @@
         options.maxMorphTargets = this.maxMorphTargets;
         options.physicallyCorrectLights = this.physicallyCorrectLights;
         options.shadowMapEnabled = this.shadowMap.enabled;
-        options.shadowMapRenderReverseSided = this.shadowMap.renderReverseSided;
-        options.shadowMapRenderSingleSided = this.shadowMap.renderSingleSided;
         options.shadowMapType = this.shadowMap.type;
         options.sortObjects = this.sortObjects;
         options.toneMapping = this.toneMapping;
@@ -652,8 +627,8 @@
     }, {
       key: 'restoreOptions',
       value: function restoreOptions() {
-        var scope = internal$1(this);
-        var options = scope.options;
+        var _internal2 = internal$1(this),
+            options = _internal2.options;
 
         this.autoClear = options.autoClear;
         this.autoClearColor = options.autoClearColor;
@@ -668,8 +643,6 @@
         this.maxMorphTargets = options.maxMorphTargets;
         this.physicallyCorrectLights = options.physicallyCorrectLights;
         this.shadowMap.enabled = options.shadowMapEnabled;
-        this.shadowMap.renderReverseSided = options.shadowMapRenderReverseSided;
-        this.shadowMap.renderSingleSided = options.shadowMapRenderSingleSided;
         this.shadowMap.type = options.shadowMapType;
         this.sortObjects = options.sortObjects;
         this.toneMapping = options.toneMapping;
