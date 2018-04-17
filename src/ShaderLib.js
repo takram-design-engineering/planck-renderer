@@ -88,5 +88,5 @@ export default {
   points_picking_vert_params,
   points_vert_begin,
   points_vert_end,
-  points_vert_params,
+  points_vert_params
 }

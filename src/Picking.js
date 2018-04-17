@@ -10,7 +10,7 @@ import PickingMaterial from './PickingMaterial'
 export const internal = Namespace('Picking')
 
 export default class Picking {
-  constructor(renderer) {
+  constructor (renderer) {
     const scope = internal(this)
     scope.renderer = renderer
     scope.buffer = new Uint8Array(4)
@@ -24,19 +24,18 @@ export default class Picking {
     this.renderBufferDirect = this.renderBufferDirect.bind(this)
   }
 
-  get renderer() {
-    const scope = internal(this)
-    return scope.renderer
+  get renderer () {
+    return internal(this).renderer
   }
 
-  pick(renderTarget, x, y) {
+  pick (renderTarget, x, y) {
     const scope = internal(this)
     const { buffer } = scope
     const pixelX = (x + 1) * renderTarget.width / 2
     const pixelY = (y + 1) * renderTarget.height / 2
     this.renderer.readRenderTargetPixels(
       renderTarget, pixelX, pixelY,
-      1, 1, buffer,
+      1, 1, buffer
     )
 
     // An identifier should always be unsigned
@@ -64,7 +63,7 @@ export default class Picking {
     return { identifier, target, targetIdentifier }
   }
 
-  render(scene, camera, renderTarget, forceClear) {
+  render (scene, camera, renderTarget, forceClear) {
     const { renderer } = this
     renderer.saveOptions()
     renderer.autoClear = true
@@ -81,7 +80,6 @@ export default class Picking {
 
     // Swap camera's layers with picking layers
     const { layers } = camera
-    // eslint-disable-next-line no-param-reassign
     camera.layers = this.layers
 
     // Render the scene using our render buffer direct
@@ -90,7 +88,6 @@ export default class Picking {
     delete renderer.renderBufferDirect
 
     // Restore camera's layers we've swapped above
-    // eslint-disable-next-line no-param-reassign
     camera.layers = layers
 
     // Sentinel value for finding in ranges when picking
@@ -100,7 +97,7 @@ export default class Picking {
     renderer.restoreOptions()
   }
 
-  renderBufferDirect(camera, fog, geometry, mat, object, group) {
+  renderBufferDirect (camera, fog, geometry, mat, object, group) {
     const scope = internal(this)
 
     // Prefer using object's custom picking material
@@ -131,7 +128,7 @@ export default class Picking {
     // Call the original render buffer direct
     const { renderer } = this
     renderer.constructor.prototype.renderBufferDirect.apply(renderer, [
-      camera, fog, geometry, material, object, group,
+      camera, fog, geometry, material, object, group
     ])
   }
 }

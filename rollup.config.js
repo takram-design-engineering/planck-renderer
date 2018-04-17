@@ -6,8 +6,10 @@ import commonjs from 'rollup-plugin-commonjs'
 import glslify from '@shotamatsuda/rollup-plugin-glslify'
 import nodeResolve from 'rollup-plugin-node-resolve'
 
+import pkg from './package.json'
+
 export default {
-  input: './dist/planck-renderer.module.js',
+  input: pkg.module,
   plugins: [
     glslify(),
     nodeResolve({ browser: true }),
@@ -18,24 +20,26 @@ export default {
         'es2016',
         'es2017',
         'stage-3',
+        'stage-2'
       ],
       plugins: [
-        'external-helpers',
+        'external-helpers'
       ],
-      babelrc: false,
-    }),
+      babelrc: false
+    })
   ],
   external: [
-    'three',
+    'three'
   ],
   output: {
     globals: {
-      'three': 'THREE',
+      'three': 'THREE'
     },
     format: 'umd',
+    exports: 'named',
     extend: true,
     name: 'Planck',
-    file: './dist/planck-renderer.js',
-    sourcemap: true,
-  },
+    file: pkg.main,
+    sourcemap: true
+  }
 }
