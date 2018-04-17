@@ -69,8 +69,7 @@ export default class Renderer extends Three.WebGLRenderer {
   }
 
   saveOptions () {
-    const scope = internal(this)
-    const { options } = scope
+    const { options } = internal(this)
     options.autoClear = this.autoClear
     options.autoClearColor = this.autoClearColor
     options.autoClearDepth = this.autoClearDepth
@@ -92,8 +91,7 @@ export default class Renderer extends Three.WebGLRenderer {
   }
 
   restoreOptions () {
-    const scope = internal(this)
-    const { options } = scope
+    const { options } = internal(this)
     this.autoClear = options.autoClear
     this.autoClearColor = options.autoClearColor
     this.autoClearDepth = options.autoClearDepth

@@ -25,8 +25,7 @@ export default class Picking {
   }
 
   get renderer () {
-    const scope = internal(this)
-    return scope.renderer
+    return internal(this).renderer
   }
 
   pick (renderTarget, x, y) {
