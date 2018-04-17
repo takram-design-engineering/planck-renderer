@@ -8,7 +8,7 @@ import Namespace from '@takram/planck-core/src/Namespace'
 export const internal = Namespace('Renderer')
 
 export default class Renderer extends Three.WebGLRenderer {
-  constructor(...args) {
+  constructor (...args) {
     super(...args)
     const scope = internal(this)
     scope.perFrameUniforms = {}
@@ -21,27 +21,27 @@ export default class Renderer extends Three.WebGLRenderer {
     delete this.renderBufferImmediate
   }
 
-  render(scene, camera, renderTarget, forceClear) {
+  render (scene, camera, renderTarget, forceClear) {
     const scope = internal(this)
     scope.perFrameUniforms = this.createPerFrameUniforms(scene, camera)
     scope.render(scene, camera, renderTarget, forceClear)
   }
 
-  renderBufferDirect(camera, fog, geometry, material, object, group) {
+  renderBufferDirect (camera, fog, geometry, material, object, group) {
     const scope = internal(this)
     this.applyPerFrameUniforms(material)
     scope.renderBufferDirect(camera, fog, geometry, material, object, group)
   }
 
-  renderBufferImmediate(object, program, material) {
+  renderBufferImmediate (object, program, material) {
     const scope = internal(this)
     this.applyPerFrameUniforms(material)
     scope.renderBufferImmediate(object, program, material)
   }
 
-  createPerFrameUniforms(scene, camera) {
+  createPerFrameUniforms (scene, camera) {
     const uniforms = {
-      pixelRatio: this.getPixelRatio(),
+      pixelRatio: this.getPixelRatio()
     }
     if (camera.isOrthographicCamera) {
       uniforms.cameraZoom = camera.zoom
@@ -49,7 +49,7 @@ export default class Renderer extends Three.WebGLRenderer {
     return uniforms
   }
 
-  applyPerFrameUniforms(material) {
+  applyPerFrameUniforms (material) {
     if (!material) {
       return
     }
@@ -68,7 +68,7 @@ export default class Renderer extends Three.WebGLRenderer {
     }
   }
 
-  saveOptions() {
+  saveOptions () {
     const scope = internal(this)
     const { options } = scope
     options.autoClear = this.autoClear
@@ -93,7 +93,7 @@ export default class Renderer extends Three.WebGLRenderer {
     options.toneMappingWhitePoint = this.toneMappingWhitePoint
   }
 
-  restoreOptions() {
+  restoreOptions () {
     const scope = internal(this)
     const { options } = scope
     this.autoClear = options.autoClear

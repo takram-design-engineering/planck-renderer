@@ -9,7 +9,7 @@ import fragmentShader from './shader/points_picking_frag.glsl'
 import vertexShader from './shader/points_picking_vert.glsl'
 
 export default class PointsPickingMaterial extends Three.ShaderMaterial {
-  constructor(parameters = {}) {
+  constructor (parameters = {}) {
     super()
     this.color = new Three.Color(0xffffff)
     const source = new Three.PointsMaterial()
@@ -24,14 +24,14 @@ export default class PointsPickingMaterial extends Three.ShaderMaterial {
 
     this.uniforms = Three.UniformsUtils.merge([
       Three.ShaderLib.points.uniforms, {
-        identifier: { value: new Three.Vector4() },
-      },
+        identifier: { value: new Three.Vector4() }
+      }
     ])
     this.vertexShader = Shader.include(vertexShader)
     this.fragmentShader = Shader.include(fragmentShader)
   }
 
-  get identifier() {
+  get identifier () {
     const uniform = this.uniforms.identifier.value
     return ((((uniform.x * 0xff) & 0xff) << 24) |
             (((uniform.y * 0xff) & 0xff) << 16) |
@@ -39,7 +39,7 @@ export default class PointsPickingMaterial extends Three.ShaderMaterial {
             (((uniform.w * 0xff) & 0xff) << 0)) >>> 0
   }
 
-  set identifier(value) {
+  set identifier (value) {
     const uniform = this.uniforms.identifier.value
     uniform.x = ((value >>> 24) & 0xff) / 0xff
     uniform.y = ((value >>> 16) & 0xff) / 0xff

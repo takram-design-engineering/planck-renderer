@@ -4,7 +4,7 @@
 import ShaderLib from './ShaderLib'
 
 export default {
-  include(source, includes = ShaderLib, scope = 'planck/') {
+  include (source, includes = ShaderLib, scope = 'planck/') {
     const pattern = new RegExp(`#include +<${scope}([\\w\\d.]+)>`, 'g')
     const replace = (match, id) => {
       const source = includes[id]
@@ -14,5 +14,5 @@ export default {
       return source.replace(pattern, replace)
     }
     return source.replace(pattern, replace)
-  },
+  }
 }
