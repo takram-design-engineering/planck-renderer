@@ -3,7 +3,7 @@
 
 import * as Three from 'three'
 
-import Shader from './Shader'
+import { includeShader } from './Shader'
 
 import fragmentShader from './shader/points_frag.glsl'
 import vertexShader from './shader/points_vert.glsl'
@@ -21,7 +21,7 @@ export default class PointsMaterial extends Three.ShaderMaterial {
     this.uniforms = Three.UniformsUtils.merge([
       Three.ShaderLib.points.uniforms
     ])
-    this.vertexShader = Shader.include(vertexShader)
-    this.fragmentShader = Shader.include(fragmentShader)
+    this.vertexShader = includeShader(vertexShader)
+    this.fragmentShader = includeShader(fragmentShader)
   }
 }
