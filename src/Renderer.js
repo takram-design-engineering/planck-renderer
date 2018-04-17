@@ -84,8 +84,6 @@ export default class Renderer extends Three.WebGLRenderer {
     options.maxMorphTargets = this.maxMorphTargets
     options.physicallyCorrectLights = this.physicallyCorrectLights
     options.shadowMapEnabled = this.shadowMap.enabled
-    options.shadowMapRenderReverseSided = this.shadowMap.renderReverseSided
-    options.shadowMapRenderSingleSided = this.shadowMap.renderSingleSided
     options.shadowMapType = this.shadowMap.type
     options.sortObjects = this.sortObjects
     options.toneMapping = this.toneMapping
@@ -109,8 +107,6 @@ export default class Renderer extends Three.WebGLRenderer {
     this.maxMorphTargets = options.maxMorphTargets
     this.physicallyCorrectLights = options.physicallyCorrectLights
     this.shadowMap.enabled = options.shadowMapEnabled
-    this.shadowMap.renderReverseSided = options.shadowMapRenderReverseSided
-    this.shadowMap.renderSingleSided = options.shadowMapRenderSingleSided
     this.shadowMap.type = options.shadowMapType
     this.sortObjects = options.sortObjects
     this.toneMapping = options.toneMapping
