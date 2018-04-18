@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('three')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'three'], factory) :
-  (factory((global.Planck = global.Planck || {}),global.THREE));
-}(this, (function (exports,Three) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('three'), require('@takram/planck-core')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'three', '@takram/planck-core'], factory) :
+  (factory((global.Planck = global.Planck || {}),global.THREE,global.Planck));
+}(this, (function (exports,Three,planckCore) { 'use strict';
 
   var depth_frag_begin = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2010-2017 three.js authors\n// Copyright (C) 2016-Present Shota Matsuda\n\n// r87\n// depth_frag.glsl\n\n#include <clipping_planes_fragment>\n\nvec4 diffuseColor = vec4(1.0);\n\n#if DEPTH_PACKING == 3200\n  diffuseColor.a = opacity;\n#endif\n";
 
@@ -238,23 +238,6 @@
     return LineBasicMaterial;
   }(Three.ShaderMaterial);
 
-  // The MIT License
-  // Copyright (C) 2016-Present Shota Matsuda
-
-  function createNamespace(name) {
-    var symbol = Symbol(name);
-    return function namespace(object, init) {
-      if (object[symbol] == null) {
-        if (typeof init === 'function') {
-          object[symbol] = init({});
-        } else {
-          object[symbol] = {};
-        }
-      }
-      return object[symbol];
-    };
-  }
-
   var fragmentShader$1 = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\n#include <planck/picking_frag_params>\n\nvoid main() {\n  #include <planck/picking_frag_begin>\n  #include <planck/picking_frag_end>\n}\n";
 
   var vertexShader$1 = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\n#include <planck/picking_vert_params>\n\nvoid main() {\n  #include <planck/picking_vert_begin>\n  #include <planck/picking_vert_end>\n}\n";
@@ -302,7 +285,7 @@
 
   // The MIT License
 
-  var internal = createNamespace('Picking');
+  var internal = planckCore.Namespace('Picking');
 
   var Picking = function () {
     function Picking(renderer) {
@@ -518,7 +501,7 @@
 
   // The MIT License
 
-  var internal$1 = createNamespace('Renderer');
+  var internal$1 = planckCore.Namespace('Renderer');
 
   var Renderer = function (_Three$WebGLRenderer) {
     inherits(Renderer, _Three$WebGLRenderer);

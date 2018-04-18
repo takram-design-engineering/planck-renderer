@@ -1,4 +1,5 @@
 import { Color, LineBasicMaterial, UniformsUtils, UniformsLib, ShaderMaterial, Layers, NoToneMapping, Vector4, PointsMaterial, ShaderLib, WebGLRenderer } from 'three';
+import { Namespace } from '@takram/planck-core';
 
 var depth_frag_begin = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2010-2017 three.js authors\n// Copyright (C) 2016-Present Shota Matsuda\n\n// r87\n// depth_frag.glsl\n\n#include <clipping_planes_fragment>\n\nvec4 diffuseColor = vec4(1.0);\n\n#if DEPTH_PACKING == 3200\n  diffuseColor.a = opacity;\n#endif\n";
 
@@ -234,23 +235,6 @@ var LineBasicMaterial$1 = function (_Three$ShaderMaterial) {
   return LineBasicMaterial$$1;
 }(ShaderMaterial);
 
-// The MIT License
-// Copyright (C) 2016-Present Shota Matsuda
-
-function createNamespace(name) {
-  var symbol = Symbol(name);
-  return function namespace(object, init) {
-    if (object[symbol] == null) {
-      if (typeof init === 'function') {
-        object[symbol] = init({});
-      } else {
-        object[symbol] = {};
-      }
-    }
-    return object[symbol];
-  };
-}
-
 var fragmentShader$1 = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\n#include <planck/picking_frag_params>\n\nvoid main() {\n  #include <planck/picking_frag_begin>\n  #include <planck/picking_frag_end>\n}\n";
 
 var vertexShader$1 = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\n#include <planck/picking_vert_params>\n\nvoid main() {\n  #include <planck/picking_vert_begin>\n  #include <planck/picking_vert_end>\n}\n";
@@ -298,7 +282,7 @@ var PickingMaterial = function (_Three$ShaderMaterial) {
 
 // The MIT License
 
-var internal = createNamespace('Picking');
+var internal = Namespace('Picking');
 
 var Picking = function () {
   function Picking(renderer) {
@@ -514,7 +498,7 @@ var PointsPickingMaterial = function (_Three$ShaderMaterial) {
 
 // The MIT License
 
-var internal$1 = createNamespace('Renderer');
+var internal$1 = Namespace('Renderer');
 
 var Renderer = function (_Three$WebGLRenderer) {
   inherits(Renderer, _Three$WebGLRenderer);
