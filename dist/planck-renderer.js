@@ -655,7 +655,7 @@
 
   // The MIT License
 
-  var planckRenderer_module = {
+  var main = {
     LineBasicMaterial: LineBasicMaterial,
     Picking: Picking,
     PickingMaterial: PickingMaterial,
@@ -674,7 +674,7 @@
   exports.Renderer = Renderer;
   exports.Shader = Shader;
   exports.ShaderLib = ShaderLib;
-  exports.default = planckRenderer_module;
+  exports.default = main;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
