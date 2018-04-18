@@ -8,6 +8,11 @@ import nodeResolve from 'rollup-plugin-node-resolve'
 
 import pkg from './package.json'
 
+const globals = {
+  '@takram/planck-core': 'Planck',
+  'three': 'THREE'
+}
+
 export default {
   input: './src/main.js',
   plugins: [
@@ -28,14 +33,10 @@ export default {
       babelrc: false
     })
   ],
-  external: [
-    'three'
-  ],
+  external: Object.keys(globals),
   output: [
     {
-      globals: {
-        'three': 'THREE'
-      },
+      globals,
       format: 'umd',
       exports: 'named',
       extend: true,
@@ -44,13 +45,8 @@ export default {
       sourcemap: true
     },
     {
-      globals: {
-        'three': 'THREE'
-      },
+      globals,
       format: 'es',
-      exports: 'named',
-      extend: true,
-      name: 'Planck',
       file: pkg.module,
       sourcemap: true
     }

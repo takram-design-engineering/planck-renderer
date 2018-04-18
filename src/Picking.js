@@ -3,7 +3,7 @@
 
 import * as Three from 'three'
 
-import Namespace from '@takram/planck-core/src/Namespace'
+import { Namespace } from '@takram/planck-core'
 
 import PickingMaterial from './PickingMaterial'
 
