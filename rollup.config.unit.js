@@ -4,15 +4,11 @@
 import babel from 'rollup-plugin-babel'
 import commonjs from 'rollup-plugin-commonjs'
 import nodeResolve from 'rollup-plugin-node-resolve'
-import path from 'path'
-
-import config from './rollup.config'
-import pkg from './package.json'
 
 export default {
   input: './test/unit.js',
   plugins: [
-    nodeResolve({ browser: true }),
+    nodeResolve(),
     commonjs(),
     babel({
       presets: [
@@ -29,7 +25,6 @@ export default {
     })
   ],
   external: [
-    path.resolve(pkg.browser),
     'chai',
     'mocha',
     'source-map-support/register',
@@ -39,7 +34,6 @@ export default {
   output: {
     intro: 'var BUNDLER = "rollup";',
     globals: {
-      [path.resolve(pkg.browser)]: config.output.name,
       'chai': 'chai',
       'mocha': 'mocha',
       '@takram/planck-core': 'Planck',
