@@ -1,11 +1,33 @@
 // The MIT License
 // Copyright (C) 2016-Present Shota Matsuda
 
-export { default as LineBasicMaterial } from '../src/LineBasicMaterial'
-export { default as Picking } from '../src/Picking'
-export { default as PickingMaterial } from '../src/PickingMaterial'
-export { default as PointsMaterial } from '../src/PointsMaterial'
-export { default as PointsPickingMaterial } from '../src/PointsPickingMaterial'
-export { default as Renderer } from '../src/Renderer'
-export { default as Shader } from '../src/Shader'
-export { default as ShaderLib } from '../src/ShaderLib'
+import LineBasicMaterial from '../src/LineBasicMaterial'
+import Picking from '../src/Picking'
+import PickingMaterial from '../src/PickingMaterial'
+import PointsMaterial from '../src/PointsMaterial'
+import PointsPickingMaterial from '../src/PointsPickingMaterial'
+import Renderer from '../src/Renderer'
+import Shader from '../src/Shader'
+import ShaderLib from '../src/ShaderLib'
+
+export {
+  LineBasicMaterial,
+  Picking,
+  PickingMaterial,
+  PointsMaterial,
+  PointsPickingMaterial,
+  Renderer,
+  Shader,
+  ShaderLib,
+}
+
+export default {
+  LineBasicMaterial,
+  Picking,
+  PickingMaterial,
+  PointsMaterial,
+  PointsPickingMaterial,
+  Renderer,
+  Shader,
+  ShaderLib,
+}
