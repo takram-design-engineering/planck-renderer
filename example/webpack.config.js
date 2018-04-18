@@ -25,7 +25,6 @@ module.exports = {
     filename: '[name]/main.js'
   },
   externals: {
-    '@takram/planck-renderer': 'Planck',
     'three': 'THREE'
   },
   devtool: 'source-map',
@@ -62,11 +61,6 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new CopyWebpackPlugin([
-      {
-        context: path.resolve(__dirname, '..'),
-        from: 'dist/planck-renderer.js',
-        to: 'lib'
-      },
       {
         context: path.resolve(__dirname, '../node_modules'),
         from: 'three/build/three.js',

@@ -2,7 +2,7 @@
 // Copyright (C) 2016-Present Shota Matsuda
 
 import * as Three from 'three'
-import * as Planck from '@takram/planck-renderer'
+import * as Planck from '../../..'
 
 let container
 let camera
