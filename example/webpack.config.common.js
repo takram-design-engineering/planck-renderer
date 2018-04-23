@@ -1,6 +1,7 @@
 // The MIT License
 // Copyright (C) 2016-Present Shota Matsuda
 
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const fs = require('fs')
 const path = require('path')
@@ -11,7 +12,7 @@ const entries = fs.readdirSync(directory).filter(file => {
   return fs.statSync(path.join(directory, file)).isDirectory()
 })
 
-module.exports = {
+module.exports = mode => ({
   mode: 'development',
   entry: entries.reduce((entries, name) => ({
     ...entries,
@@ -26,15 +27,6 @@ module.exports = {
   },
   externals: {
     'three': 'THREE'
-  },
-  devtool: 'source-map',
-  devServer: {
-    contentBase: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
-    hot: true,
-    inline: true,
-    host: '0.0.0.0',
-    port: 3000
   },
   module: {
     rules: [
@@ -59,7 +51,12 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      'process.browser': JSON.stringify(true)
+    }),
+    new CleanWebpackPlugin(['dist'], {
+      root: path.resolve(__dirname)
+    }),
     new CopyWebpackPlugin([
       {
         context: path.resolve(__dirname, '../node_modules'),
@@ -72,4 +69,4 @@ module.exports = {
       }))
     ])
   ]
-}
+})

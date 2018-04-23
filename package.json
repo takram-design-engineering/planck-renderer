@@ -42,7 +42,8 @@
     "watch:test": "nodemon -C --watch test --exec 'npm-run-all test:compile test:node'",
     "watch:rollup": "nodemon -C --watch rollup.config.unit.js --exec 'npm run test:compile:rollup'",
     "watch:webpack": "nodemon -C --watch webpack.config.unit.js --exec 'npm run test:compile:webpack'",
-    "example": "webpack-dev-server --config example/webpack.config.js"
+    "example": "webpack-dev-server --config example/webpack.config.development.js",
+    "example:compile": "webpack --config example/webpack.config.production.js"
   },
   "peerDependencies": {
     "@takram/planck-core": "0.x",
@@ -64,6 +65,7 @@
     "browser-sync": "^2.23.6",
     "chai": "^4.1.2",
     "chalk": "^2.4.0",
+    "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.1",
     "eslint": "^4.19.1",
     "express": "^4.16.3",
@@ -82,7 +84,8 @@
     "uglify-js": "^3.3.21",
     "webpack": "^4.6.0",
     "webpack-cli": "^2.0.14",
-    "webpack-dev-server": "^3.1.3"
+    "webpack-dev-server": "^3.1.3",
+    "webpack-merge": "^4.1.2"
   },
   "saucelabs": {
     "framework": "mocha",
