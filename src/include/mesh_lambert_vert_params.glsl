@@ -1,8 +1,8 @@
 // The MIT License
-// Copyright (C) 2010-2017 three.js authors
+// Copyright (C) 2010-2018 three.js authors
 // Copyright (C) 2016-Present Shota Matsuda
 
-// r87
+// r92
 // meshlambert_vert.glsl
 
 #define LAMBERT
@@ -17,7 +17,8 @@ varying vec3 vLightFront;
 #include <uv2_pars_vertex>
 #include <envmap_pars_vertex>
 #include <bsdfs>
-#include <lights_pars>
+#include <lights_pars_begin>
+#include <lights_pars_maps>
 #include <color_pars_vertex>
 #include <fog_pars_vertex>
 #include <morphtarget_pars_vertex>

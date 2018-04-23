@@ -1,8 +1,8 @@
 // The MIT License
-// Copyright (C) 2010-2017 three.js authors
+// Copyright (C) 2010-2018 three.js authors
 // Copyright (C) 2016-Present Shota Matsuda
 
-// r87
+// r92
 // meshlambert_frag.glsl
 
 uniform vec3 diffuse;
@@ -27,7 +27,8 @@ varying vec3 vLightFront;
 #include <emissivemap_pars_fragment>
 #include <envmap_pars_fragment>
 #include <bsdfs>
-#include <lights_pars>
+#include <lights_pars_begin>
+#include <lights_pars_maps>
 #include <fog_pars_fragment>
 #include <shadowmap_pars_fragment>
 #include <shadowmask_pars_fragment>
