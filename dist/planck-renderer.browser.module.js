@@ -1,9 +1,5 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-var Three = require('three');
-var planckCore = require('@takram/planck-core');
+import { Color, LineBasicMaterial, UniformsUtils, UniformsLib, ShaderMaterial, Layers, NoToneMapping, Vector4, PointsMaterial, ShaderLib, WebGLRenderer } from 'three';
+import { Namespace } from '@takram/planck-core';
 
 var depth_frag_begin = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2010-2017 three.js authors\n// Copyright (C) 2016-Present Shota Matsuda\n\n// r87\n// depth_frag.glsl\n\n#include <clipping_planes_fragment>\n\nvec4 diffuseColor = vec4(1.0);\n\n#if DEPTH_PACKING == 3200\n  diffuseColor.a = opacity;\n#endif\n";
 
@@ -91,7 +87,7 @@ var points_vert_params = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C
 
 // The MIT License
 
-var ShaderLib = {
+var ShaderLib$1 = {
   depth_frag_begin: depth_frag_begin,
   depth_frag_end: depth_frag_end,
   depth_frag_params: depth_frag_params,
@@ -139,7 +135,7 @@ var ShaderLib = {
 // The MIT License
 
 function includeShader(source) {
-  var includes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ShaderLib;
+  var includes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ShaderLib$1;
   var path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'planck/';
 
   var pattern = new RegExp('#include +<' + path + '([\\w\\d.]+)>', 'g');
@@ -211,23 +207,23 @@ var possibleConstructorReturn = function (self, call) {
 
 // The MIT License
 
-var LineBasicMaterial = function (_Three$ShaderMaterial) {
-  inherits(LineBasicMaterial, _Three$ShaderMaterial);
+var LineBasicMaterial$1 = function (_Three$ShaderMaterial) {
+  inherits(LineBasicMaterial$$1, _Three$ShaderMaterial);
 
-  function LineBasicMaterial() {
+  function LineBasicMaterial$$1() {
     var parameters = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    classCallCheck(this, LineBasicMaterial);
+    classCallCheck(this, LineBasicMaterial$$1);
 
-    var _this = possibleConstructorReturn(this, (LineBasicMaterial.__proto__ || Object.getPrototypeOf(LineBasicMaterial)).call(this));
+    var _this = possibleConstructorReturn(this, (LineBasicMaterial$$1.__proto__ || Object.getPrototypeOf(LineBasicMaterial$$1)).call(this));
 
-    _this.color = new Three.Color(0xffffff);
-    var source = new Three.LineBasicMaterial();
-    Three.LineBasicMaterial.prototype.copy.call(_this, source);
+    _this.color = new Color(0xffffff);
+    var source = new LineBasicMaterial();
+    LineBasicMaterial.prototype.copy.call(_this, source);
     source.dispose();
     _this.setValues(parameters);
     _this.isLineBasicMaterial = true;
 
-    _this.uniforms = Three.UniformsUtils.merge([Three.UniformsLib.common, Three.UniformsLib.fog, {
+    _this.uniforms = UniformsUtils.merge([UniformsLib.common, UniformsLib.fog, {
       pixelRatio: { value: 1 },
       targetPixelRatio: { value: 2 }
     }]);
@@ -236,8 +232,8 @@ var LineBasicMaterial = function (_Three$ShaderMaterial) {
     return _this;
   }
 
-  return LineBasicMaterial;
-}(Three.ShaderMaterial);
+  return LineBasicMaterial$$1;
+}(ShaderMaterial);
 
 var fragmentShader$1 = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\n#include <planck/picking_frag_params>\n\nvoid main() {\n  #include <planck/picking_frag_begin>\n  #include <planck/picking_frag_end>\n}\n";
 
@@ -259,8 +255,8 @@ var PickingMaterial = function (_Three$ShaderMaterial) {
     _this.lights = false;
     _this.isPickingMaterial = true;
 
-    _this.uniforms = Three.UniformsUtils.merge([Three.UniformsLib.common, {
-      identifier: { value: new Three.Vector4() }
+    _this.uniforms = UniformsUtils.merge([UniformsLib.common, {
+      identifier: { value: new Vector4() }
     }]);
     _this.vertexShader = includeShader(vertexShader$1);
     _this.fragmentShader = includeShader(fragmentShader$1);
@@ -282,11 +278,11 @@ var PickingMaterial = function (_Three$ShaderMaterial) {
     }
   }]);
   return PickingMaterial;
-}(Three.ShaderMaterial);
+}(ShaderMaterial);
 
 // The MIT License
 
-var internal = planckCore.Namespace('Picking');
+var internal = Namespace('Picking');
 
 var Picking = function () {
   function Picking(renderer) {
@@ -301,7 +297,7 @@ var Picking = function () {
     scope.materialIndex = 0;
 
     // Configurable layers to test against objects
-    this.layers = new Three.Layers();
+    this.layers = new Layers();
     this.renderBufferDirect = this.renderBufferDirect.bind(this);
   }
 
@@ -347,7 +343,7 @@ var Picking = function () {
       renderer.gammaInput = false;
       renderer.gammaOutput = false;
       renderer.shadowMap.enabled = false;
-      renderer.toneMapping = Three.NoToneMapping;
+      renderer.toneMapping = NoToneMapping;
 
       // Reset states for this frame
       var scope = internal(this);
@@ -424,30 +420,30 @@ var vertexShader$2 = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 20
 
 // The MIT License
 
-var PointsMaterial = function (_Three$ShaderMaterial) {
-  inherits(PointsMaterial, _Three$ShaderMaterial);
+var PointsMaterial$1 = function (_Three$ShaderMaterial) {
+  inherits(PointsMaterial$$1, _Three$ShaderMaterial);
 
-  function PointsMaterial() {
+  function PointsMaterial$$1() {
     var parameters = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    classCallCheck(this, PointsMaterial);
+    classCallCheck(this, PointsMaterial$$1);
 
-    var _this = possibleConstructorReturn(this, (PointsMaterial.__proto__ || Object.getPrototypeOf(PointsMaterial)).call(this));
+    var _this = possibleConstructorReturn(this, (PointsMaterial$$1.__proto__ || Object.getPrototypeOf(PointsMaterial$$1)).call(this));
 
-    _this.color = new Three.Color(0xffffff);
-    var source = new Three.PointsMaterial();
-    Three.PointsMaterial.prototype.copy.call(_this, source);
+    _this.color = new Color(0xffffff);
+    var source = new PointsMaterial();
+    PointsMaterial.prototype.copy.call(_this, source);
     source.dispose();
     _this.setValues(parameters);
     _this.isPointsMaterial = true;
 
-    _this.uniforms = Three.UniformsUtils.merge([Three.ShaderLib.points.uniforms]);
+    _this.uniforms = UniformsUtils.merge([ShaderLib.points.uniforms]);
     _this.vertexShader = includeShader(vertexShader$2);
     _this.fragmentShader = includeShader(fragmentShader$2);
     return _this;
   }
 
-  return PointsMaterial;
-}(Three.ShaderMaterial);
+  return PointsMaterial$$1;
+}(ShaderMaterial);
 
 var fragmentShader$3 = "#define GLSLIFY 1\n// The MIT License\n// Copyright (C) 2016-Present Shota Matsuda\n\n#include <planck/points_picking_frag_params>\n\nvoid main() {\n  #include <planck/points_picking_frag_begin>\n  #include <planck/points_picking_frag_end>\n}\n";
 
@@ -464,9 +460,9 @@ var PointsPickingMaterial = function (_Three$ShaderMaterial) {
 
     var _this = possibleConstructorReturn(this, (PointsPickingMaterial.__proto__ || Object.getPrototypeOf(PointsPickingMaterial)).call(this));
 
-    _this.color = new Three.Color(0xffffff);
-    var source = new Three.PointsMaterial();
-    Three.PointsMaterial.prototype.copy.call(_this, source);
+    _this.color = new Color(0xffffff);
+    var source = new PointsMaterial();
+    PointsMaterial.prototype.copy.call(_this, source);
     source.dispose();
     delete _this.color;
     _this.setValues(parameters);
@@ -475,8 +471,8 @@ var PointsPickingMaterial = function (_Three$ShaderMaterial) {
     _this.isPointsMaterial = true;
     _this.isPickingMaterial = true;
 
-    _this.uniforms = Three.UniformsUtils.merge([Three.ShaderLib.points.uniforms, {
-      identifier: { value: new Three.Vector4() }
+    _this.uniforms = UniformsUtils.merge([ShaderLib.points.uniforms, {
+      identifier: { value: new Vector4() }
     }]);
     _this.vertexShader = includeShader(vertexShader$3);
     _this.fragmentShader = includeShader(fragmentShader$3);
@@ -498,11 +494,11 @@ var PointsPickingMaterial = function (_Three$ShaderMaterial) {
     }
   }]);
   return PointsPickingMaterial;
-}(Three.ShaderMaterial);
+}(ShaderMaterial);
 
 // The MIT License
 
-var internal$1 = planckCore.Namespace('Renderer');
+var internal$1 = Namespace('Renderer');
 
 var Renderer = function (_Three$WebGLRenderer) {
   inherits(Renderer, _Three$WebGLRenderer);
@@ -635,28 +631,21 @@ var Renderer = function (_Three$WebGLRenderer) {
     }
   }]);
   return Renderer;
-}(Three.WebGLRenderer);
+}(WebGLRenderer);
 
 // The MIT License
 
 var index = {
-  LineBasicMaterial: LineBasicMaterial,
+  LineBasicMaterial: LineBasicMaterial$1,
   Picking: Picking,
   PickingMaterial: PickingMaterial,
-  PointsMaterial: PointsMaterial,
+  PointsMaterial: PointsMaterial$1,
   PointsPickingMaterial: PointsPickingMaterial,
   Renderer: Renderer,
   Shader: Shader,
-  ShaderLib: ShaderLib
+  ShaderLib: ShaderLib$1
 };
 
-exports.LineBasicMaterial = LineBasicMaterial;
-exports.Picking = Picking;
-exports.PickingMaterial = PickingMaterial;
-exports.PointsMaterial = PointsMaterial;
-exports.PointsPickingMaterial = PointsPickingMaterial;
-exports.Renderer = Renderer;
-exports.Shader = Shader;
-exports.ShaderLib = ShaderLib;
-exports.default = index;
-//# sourceMappingURL=planck-renderer.js.map
+export default index;
+export { LineBasicMaterial$1 as LineBasicMaterial, Picking, PickingMaterial, PointsMaterial$1 as PointsMaterial, PointsPickingMaterial, Renderer, Shader, ShaderLib$1 as ShaderLib };
+//# sourceMappingURL=planck-renderer.browser.module.js.map

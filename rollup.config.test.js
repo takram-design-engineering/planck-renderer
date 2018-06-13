@@ -3,20 +3,18 @@
 
 import babel from 'rollup-plugin-babel'
 import commonjs from 'rollup-plugin-commonjs'
-import glslify from '@shotamatsuda/rollup-plugin-glslify'
 import nodeResolve from 'rollup-plugin-node-resolve'
 
-import pkg from './package.json'
+const globals = {
+  'chai': 'chai',
+  'mocha': 'mocha',
+  'three': 'THREE'
+}
 
 export default {
-  input: './src/index.js',
-  external: [
-    '@takram/planck-core',
-    'three'
-  ],
+  input: './test/index.js',
   plugins: [
-    glslify(),
-    nodeResolve(),
+    nodeResolve({ browser: true }),
     commonjs(),
     babel({
       presets: [
@@ -32,17 +30,15 @@ export default {
       babelrc: false
     })
   ],
-  output: [
-    {
-      format: 'cjs',
-      exports: 'named',
-      file: pkg.main,
-      sourcemap: true
-    },
-    {
-      format: 'es',
-      file: pkg.module,
-      sourcemap: true
-    }
-  ]
+  external: [
+    ...Object.keys(globals),
+    'source-map-support/register'
+  ],
+  output: {
+    globals,
+    intro: 'var BUNDLER = "rollup";',
+    format: 'iife',
+    file: './dist/test/rollup.js',
+    sourcemap: true
+  }
 }

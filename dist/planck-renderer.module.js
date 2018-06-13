@@ -635,7 +635,7 @@ var Renderer = function (_Three$WebGLRenderer) {
 
 // The MIT License
 
-var main = {
+var index = {
   LineBasicMaterial: LineBasicMaterial$1,
   Picking: Picking,
   PickingMaterial: PickingMaterial,
@@ -646,6 +646,6 @@ var main = {
   ShaderLib: ShaderLib$1
 };
 
-export default main;
+export default index;
 export { LineBasicMaterial$1 as LineBasicMaterial, Picking, PickingMaterial, PointsMaterial$1 as PointsMaterial, PointsPickingMaterial, Renderer, Shader, ShaderLib$1 as ShaderLib };
 //# sourceMappingURL=planck-renderer.module.js.map
